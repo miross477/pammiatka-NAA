@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">एप स्टोर</string>
+    <string name="drm_dialog_message_agreement">कृपाकए पहिने सेवाक %s शर्त सभ स्वीकार करू।</string>
+    <string name="drm_dialog_message_apptouch_not_logged">कृपाकए पहिने लॉग इन करू।</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">एहि एपक उपयोग करबाक लेल %1$s केँ इंस्टॉल करबाक होयत। एखन डाउनलोड करी?</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">खरीदारीक इतिहास (त्रुटि %s) जाँचबा मे अक्षम। ग्राहक सेवा सँ संपर्क करू।</string>
+    <string name="drm_dialog_message_check_failed">एहि खाताक (%s) उपयोग कए ई एप किनल नहि गेल छल। एप किनू वा कोनो अन्य खाता पर स्विच करू।</string>
+    <string name="drm_dialog_message_check_failed_without_name">अहाँ इ एप नहि किनने छी। कृपाकय पहिने एकरा किनू।</string>
+    <string name="drm_dialog_message_get_sign_failed">नेटवर्कक त्रुटि। कृपाकय अपन इन्टरनेट जोडक जाँच करू आ पुन:प्रयास करू।</string>
+    <string name="drm_dialog_message_hiapp_not_installed">कृपाकय पहिने AppGallery केर नवीनतम संस्करण स्थापित करू।</string>
+    <string name="drm_dialog_message_no_internet">कोनो इंटरनेट सम्पर्क नहि। कृपाकय अपन इन्टरनेट जोडक जाँच करू आ पुन:प्रयास करू।</string>
+    <string name="drm_dialog_message_not_logged">कृपाकय अपन HUAWEI ID सँ लॉगइन करू।</string>
+    <string name="drm_dialog_message_other_errorcode">किनवाक इतिहास जचवामे असफल, त्रुटिक कोड: %s। कृपाकय AppGallery ग्राहक सेवा सँ संपर्क करू।</string>
+    <string name="drm_dialog_message_over_limit">अहाँ (%s) एहि एप्लिकेशनक संग उपयोग कएल जा सकै वला उपकरणक अधिकतम संख्या पार क’ लेने छी। कृपाकय दोसर HUAWEI ID पर जाउ आ पुन: किनू।</string>
+    <string name="drm_dialog_message_over_limit_without_name">अहां एहि एप लेल डिवाइस सीमा धरि पहुँच गेलहुँ अछि। कृपाकए एकटा भिन्न खाता सँ प्रयास करू।</string>
+    <string name="drm_dialog_message_user_interrupt">किनवाक इतिहासक जाँच करवामे असफल। कृपाकय पुनः प्रयास करू।</string>
+    <string name="drm_dialog_message_waiting">किनवाक इतिहासक जाँच करैत… कृपाकय प्रतिक्षा करू।</string>
+    <string name="drm_dialog_text_buy">किनू</string>
+    <string name="drm_dialog_text_confirm">ठीक</string>
+    <string name="drm_dialog_text_hasknow">ठीक</string>
+    <string name="drm_dialog_text_install">स्थापित करू</string>
+    <string name="drm_dialog_text_login">लॉगइन करू</string>
+    <string name="drm_dialog_text_ok">ठीक</string>
+    <string name="drm_dialog_text_quit">बाहर जाउ</string>
+    <string name="drm_dialog_text_retry">ठीक</string>
+    <string name="hms_apk_not_installed_hints">HMS Core केर बिना %1$s मे किछु फीचर नीक जेकां काज नहियो कए सकैत अछि, जे अहांक डिवाइस पर इंस्टॉल नहि कयल अछि।</string>
+    <string name="hms_bindfaildlg_message">HMS Core सभक उपयोग करबामे %1$s असफल भय गेल। ऑप्टिमाइजर (फोन प्रबंधक) शुरू करू वा सेटिंग्समे जाउ, %2$s क लेल सभटा अनुमति सक्षम करू (स्वतः प्रारंभ आ द्वितीयक प्रारंभ सहित), आ पुनः प्रयास करू।</string>
+    <string name="hms_confirm">ठीक</string>
+    <string name="hms_is_spoof">एहन लगैत अछि जे अहां डिवाइस पर HMS Coreक (%1$s) अनाधिकारिक वर्जन इंस्टॉल कयने छी। कृपाकए सेटिंग्स सँ HMS Core केँ अनइंस्टॉल करू आ आधिकारिक वर्जन केँ इंस्टॉल करबाक लेल एहि एप पर घुरि कए आउ।</string>
+    <string name="hms_spoof_hints">ध्यान दिअ</string>
+</resources>

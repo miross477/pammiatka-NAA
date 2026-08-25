@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup
+        android:orientation="vertical"
+        android:id="@+id/modeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/modeCopyReceived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Дата постановления (получения копии)"/>
+        <RadioButton
+            android:id="@+id/modeEnterForce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата вступления в законную силу"/>
+    </RadioGroup>
+    <EditText
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/dateInput"
+        android:focusable="false"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="выберите дату"/>
+    <Button
+        android:textColor="#ffffff"
+        android:id="@+id/calculateButton"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Рассчитать"/>
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/labelEnterForce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Дата вступления в законную силу:"/>
+    <TextView
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:id="@+id/resultEnterForce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Период оплаты:"/>
+    <TextView
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:id="@+id/resultPayPeriod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Срок привлечения по ст. 20.25 КоАП:"/>
+    <TextView
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:id="@+id/resultArt2025Period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

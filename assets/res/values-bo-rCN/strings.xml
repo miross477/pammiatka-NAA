@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">appstore</string>
+    <string name="drm_dialog_message_agreement">%sཞབས་ཞུའི་དོན་ཚན་ལ་མོས་མཐུན་བྱས་རྗེས་བཀོལ་རོགས་གནང་།</string>
+    <string name="drm_dialog_message_apptouch_not_logged">སྔོན་ལ་ཐོ་འཇུག་བྱེད་རོགས།</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">ཉེར་སྤྱོད་ %1$s ལ་བརྟེན་པ་ཡིན། པར་གཞི་གསར་ཤོས་ཕབ་ལེན་བྱེད་རོགས།</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">ཉོས་པའི་ཟིན་ཐོར་ཞིབ་བཤེར་བྱེད་མ་ཐུབ། ནོར་འཁྲུལ་ཨང་རྟགས་(%s)ཡིན། སྐུ་མགྲོན་ཞབས་ཞུ་བར་འབྲེལ་གཏུག་གནང་རོགས།</string>
+    <string name="drm_dialog_message_check_failed">མིག་སྔའི་དྲ་གྲངས་ (%s) ཀྱིས་ཉེར་སྤྱོད་འདི་ཉོས་མེད། ཉེར་སྤྱོད་ཉོ་བའམ་ཉོས་ཟིན་པའི་དྲ་གྲངས་སུ་སྒྱུར་རྗེས་གཞི་ནས་བེད་སྤྱོད་ཐུབ།</string>
+    <string name="drm_dialog_message_check_failed_without_name">ཁྱེད་ཀྱིས་ཉེར་སྤྱོད་འདི་ཉོ་སྒྲུབ་བྱེད་མིན་འདུག ཐོག་མ་དེ་ཉོ་སྒྲུབ་གནང་རོགས།</string>
+    <string name="drm_dialog_message_get_sign_failed">དྲ་ལམ་ནོར་འཁྲུལ། ཁྱེད་ཀྱི་དྲ་རྒྱའི་སྦྲེལ་མཐུད་ཞིབ་བཤེར་གནང་བ་དང་ཡང་བསྐྱར་འབད་རྩོལ་བྱ།</string>
+    <string name="drm_dialog_message_hiapp_not_installed">ཐོག་མ་ཧྭ་ཝེའི་ཉེར་སྤྱོད་ཁྲོམ་ར་ཡི་རིམ་པ་གསར་ཤོས་དེ་སྒྲིག་འཇུག་གནང་རོགས།</string>
+    <string name="drm_dialog_message_no_internet">དྲ་རྒྱའི་སྦྲེལ་མཐུད་མིན་འདུག ཁྱེད་ཀྱི་དྲ་རྒྱའི་སྦྲེལ་མཐུད་ཞིབ་བཤེར་གནང་བ་དང་ཡང་བསྐྱར་འབད་རྩོལ་བྱ།</string>
+    <string name="drm_dialog_message_not_logged">ཁྱེད་ཀྱི་ཧྭ་ཝེའི་ཐོ་ཨང་ལྷན་ཐོ་འགོད་གནང་རོགས།</string>
+    <string name="drm_dialog_message_other_errorcode">ཉོ་སྒྲུབ་ལོ་རྒྱུས་ཞིབ་བཤེར་མ་ཐུབ། གསང་རྟགས་ནོར་བ། %s. ཧྭ་ཝེའི་ཉེར་སྤྱོད་ཁྲོམ་རའི་ཚོང་ཤག་ཞབས་ཞུ་ལ་འབྲེལ་གཏུག་གནང་རོགས།</string>
+    <string name="drm_dialog_message_over_limit">ཁྱེད་ཀྱིས་ (%s) ཉེར་སྤྱོད་འདི་ལྷན་བེད་སྤྱོད་བྱེད་ཐུབ་པའི་སྒྲིག་ཆས་དག་གི་གྲངས་མང་ཤོས་དེ་ལས་བརྒལ་འདུག ཧུ་ཝཡེ་ངོ་སྤྲོད་མིང་བྱང་གཞན་སྟེང་བརྗེ་སྒྱུར་གནང་བ་དང་། ཡང་བསྐྱར་ཉོ་སྒྲུབ་བྱ།</string>
+    <string name="drm_dialog_message_over_limit_without_name">མིག་སྔའི་རྩིས་ཐོའི་འོག་ཉེར་སྤྱོད་འདི་སྤྱད་པའི་སྒྲིག་ཆས་ཀྱི་ཁ་གྲངས་ཚད་ལས་བརྒལ་འདུག རྩིས་ཐོ་བརྗེས་ནས་བསྐྱར་དུ་ཉོ་སྒྲུབ་གནང་རོགས།</string>
+    <string name="drm_dialog_message_user_interrupt">ཉོ་སྒྲུབ་ལོ་རྒྱུས་ཞིབ་བཤེར་མ་ཐུབ། ཡང་བསྐྱར་འབད་རྩོལ་གནང་རོགས།</string>
+    <string name="drm_dialog_message_waiting">ཉོ་སྒྲུབ་ལོ་རྒྱུས་ཞིབ་བཤེར་བཞིན་པ། སྒུག་རོགས་གནང་།</string>
+    <string name="drm_dialog_text_buy">ཉོ་སྒྲུབ།</string>
+    <string name="drm_dialog_text_confirm">གཏན་འཁེལ།</string>
+    <string name="drm_dialog_text_hasknow">ཆོག</string>
+    <string name="drm_dialog_text_install">སྒྲིག་འཇུག</string>
+    <string name="drm_dialog_text_login">ཐོ་འགོད།</string>
+    <string name="drm_dialog_text_ok">ཆོག</string>
+    <string name="drm_dialog_text_quit">དོར།</string>
+    <string name="drm_dialog_text_retry">བསྐྱར་དུ་ཚོད་ལྟ་བྱེད།</string>
+    <string name="hms_apk_not_installed_hints">ཁྱེད་ཀྱིས་སྒྲིག་ཆས་ལ་པར་གཞི་གསར་ཤོས་ཀྱི་ HMS Core སྒྲིག་འཇུག་བྱས་མེད། %1$sརྒྱུན་ལྡན་ལྟར་འཁོར་སྐྱོད་བྱེད་ཐབས་བྲལ།</string>
+    <string name="hms_bindfaildlg_message">%1$s ཡིས་HMS Coreདག་བེད་སྤྱོད་བྱེད་ཐུབ་ཀྱི་མིན་འདུག ཁ་པར་གྱི་དོ་དམ་པ་འགོ་འཛུགས་བྱེད་པའམ། ཡང་ན། སྒྲིག་བཀོད་སྟེང་བསྐྱོད། %2$s ཆེད་ཆོག་མཆན་ཆ་ཚང་ནུས་ལྡན་བཟོ་ (རང་འགུལ་འགོ་འཛུགས་དང་འགོ་འཛུགས་ཕལ་པ་འཚུད་པ་ཡིན།) བ་དང་། ཡང་བསྐྱར་འབད་རྩོལ་བྱ།</string>
+    <string name="hms_confirm">ཆོག</string>
+    <string name="hms_is_spoof">སྒྲིག་ཆས་འདིར་སྒྲིག་འཇུག་བྱས་པའི་ (%1$s) ནི་ཁྲིམས་མིན་གྱི་ HMS Core པར་གཞི་ཡིན། སྔོན་ལ་རྒྱུད་ཁོངས་ཀྱི་སྒྲིག་བཀོད་ཁྲོད་ཀྱི་ཉེར་སྤྱོད་དོ་དམ་དུ་ཕེབས་ནས་པར་གཞི་འདི་བཤིག་ཕབ་བྱས་ནས། ཉེར་སྤྱོད་འདི་ཕྱིར་ལོག་ནས་ཁྲིམས་མཐུན་གྱི་ HMS Core པར་གཞི་སྒྲིག་འཇུག་བྱེད་རོགས།</string>
+    <string name="hms_spoof_hints">དྲན་སྐུལ།</string>
+</resources>

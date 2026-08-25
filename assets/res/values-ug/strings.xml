@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">ئەپ دۇكىنى</string>
+    <string name="drm_dialog_message_agreement">ئىشلىتىش ئۈچۈن %s مۇلازىمەت شەرتلىرىگە قوشۇلۇڭ</string>
+    <string name="drm_dialog_message_apptouch_not_logged">تىزىملاپ كىرىڭ.</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">بۇ ئەپنى %1$s ئارقىلىق يېڭىلاش كېرەك.</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">سودىلىق خاتىرىسى تەكشۈرۈلمىدى، مۇلازىمەت مەركىزى بىلەن ئالاقىلىشىڭ، خاتالىق كودى: %s</string>
+    <string name="drm_dialog_message_check_failed">ھازىرقى ھېساباتتا (%s) بۇ ئەپ ئېلىنمىغان. ئەپنى سېتىۋېلىڭ ياكى ئەپ سېتىۋالغان ھېساباتقا ئالماشسا، ئىشلەتكىلى بولىدۇ.</string>
+    <string name="drm_dialog_message_check_failed_without_name">بۇ ئەپ سېتىۋېلىنمىغان، سېتىۋېلىپ ئىشلىتىڭ.</string>
+    <string name="drm_dialog_message_get_sign_failed">تور بىنورمال، تورنى تەكشۈرۈپ قايتا سىناڭ.</string>
+    <string name="drm_dialog_message_hiapp_not_installed">ئەڭ يېڭى نەشرىدىكى خۇاۋېي ئەپ بازىرىنى قاچىلاڭ</string>
+    <string name="drm_dialog_message_no_internet">تور ئۇلانمىدى، تورنى تەكشۈرۈپ قايتا سىناڭ.</string>
+    <string name="drm_dialog_message_not_logged">ئاۋۋال خۇاۋېي ھېسابىغا كىرىڭ</string>
+    <string name="drm_dialog_message_other_errorcode">سېتىۋېلىش خاتىرىسىنى تەكشۈرۈش مەغلۇپ بولدى، خاتالىق كودى: (%s)، خۇاۋېي ئەپ بازىرى خېرىدارلار مۇلازىمىتى بىلەن ئالاقىلىشىڭ.</string>
+    <string name="drm_dialog_message_over_limit">ھازىرقى ھېساباتتا (%s)، بۇ ئەپنى ئىشلىتىۋاتقان ئۈسكۈنە سانى يۇقىرى چەككە يەتتى، ھېسابات ئالماشتۇرۇپ باشقىدىن سېتىۋېلىڭ.</string>
+    <string name="drm_dialog_message_over_limit_without_name">بۇ ئەپنى بۇ ھېسابات ئارقىلىق ئىشلەتكەن ئۈسكۈنە سانى چەككە يەتتى، ھېسابات ئالماشتۇرۇپ سېتىۋېلىڭ.</string>
+    <string name="drm_dialog_message_user_interrupt">سېتىۋېلىش خاتىرىسىنى تەكشۈرەلمىدى، ساقلاپ قايتا سىناڭ.</string>
+    <string name="drm_dialog_message_waiting">سېتىۋېلىش خاتىرىسىنى تەكشۈرۈۋاتىدۇ...</string>
+    <string name="drm_dialog_text_buy">سېتىۋېلىش</string>
+    <string name="drm_dialog_text_confirm">جەزملەش</string>
+    <string name="drm_dialog_text_hasknow">بىلدىم</string>
+    <string name="drm_dialog_text_install">قاچىلاش</string>
+    <string name="drm_dialog_text_login">كىرىش</string>
+    <string name="drm_dialog_text_ok">قوشۇلىمەن</string>
+    <string name="drm_dialog_text_quit">چېكىنىش</string>
+    <string name="drm_dialog_text_retry">قايتا سىناش</string>
+    <string name="hms_apk_not_installed_hints">ئۈسكۈنىدە HMS Core نىڭ يېڭى نەشرى يوق، %1$s نورمال ئىشلىمەيدۇ.</string>
+    <string name="hms_bindfaildlg_message">نۆۋەتتە %1$s مۇلازىمىتى HMS Core ئىشلىتەلمەيدۇ. باشقۇرغۇچ ياكى تەڭشەكتە %2$s ئۈچۈن بارلىق ئىجازەتنى ئېچىڭ («ئۆزلۈكىدىن قوزغىلىش» ۋە «باغلانما قوزغىتىش» مۇ شۇنىڭ ئىچىدە).</string>
+    <string name="hms_confirm">بىلدىم</string>
+    <string name="hms_is_spoof">بۇ ئۈسكۈنىگە قاچىلانغان (%1$s) رەسمىي نەشردىكى HMS Core ئەمەس. سىستېما تەڭشىكىدىكى ئەپ باشقۇرۇش ئورنىدىن ئۇنى ئۆچۈرۈپ، ئاندىن بۇ ئەپكە قايتىپ، ئورگان تەرەپ تارقاتقان HMS Core نى قاچىلاڭ.</string>
+    <string name="hms_spoof_hints">ئەسكەرتىش</string>
+</resources>

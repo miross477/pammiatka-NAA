@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:id="@+id/textView228"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/aa2"/>
+        <Button
+            android:textSize="13sp"
+            android:textColor="#caf0f8"
+            android:id="@+id/calculateButton"
+            android:background="#0077b6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="по дате постановления"
+            android:onClick="newScreen"/>
+        <Button
+            android:textSize="13sp"
+            android:textColor="#caf0f8"
+            android:id="@+id/calculateButton1"
+            android:background="#00b4d8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="по дате вступления В ЗС"
+            android:onClick="newScreen1"/>
+        <ScrollView
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</FrameLayout>

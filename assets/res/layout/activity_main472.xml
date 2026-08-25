@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:textSize="14sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/dateInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="дата вступления в законную силу"/>
+    <Button
+        android:textColor="#ffffff"
+        android:id="@+id/calculateButton"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Рассчитать"/>
+    <TextView
+        android:textSize="11sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/textView226"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/aa1"/>
+    <TextView
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/textView225"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Привлечение по ст. 20.25 КоАП:"/>
+    <TextView
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/resultText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

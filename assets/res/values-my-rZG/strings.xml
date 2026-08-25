@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">အက္ပ္စတိုး</string>
+    <string name="drm_dialog_message_agreement">အရင္ဆုံး %s ဝန္ေဆာင္မႈ စည္းမ်ဥ္းမ်ားကို သေဘာတူပါ။</string>
+    <string name="drm_dialog_message_apptouch_not_logged">အရင္ဆုံး ဝင္ေရာက္ပါ။</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">ဤအက္ပ္ကို သံုးရန္ %1$s ထည့္သြင္းရန္ လိုအပ္ပါသည္။ ယခု ေဒါင္းလုဒ္လုပ္မည္လား။</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">ဝယ္ယူမႈ မွတ္တမ္းကို စစ္ေဆး၍ မရႏိုင္ပါ (ခ်ိဳ႕ယြင္းခ်က္ %s)။ သုံးစြဲသူ ဝန္ေဆာင္မႈဌာနကို ဆက္သြယ္ပါ။</string>
+    <string name="drm_dialog_message_check_failed">ဤအေကာင့္ (%s) အား သုံး၍ ဤအက္ပ္ကို မဝယ္ခဲ့ပါ။ အက္ပ္အား ဝယ္ယူပါ သို႔မဟုတ္ အျခားအေကာင့္သို႔ ေျပာင္းပါ။</string>
+    <string name="drm_dialog_message_check_failed_without_name">သင္သည္ ဤအက္ပ္အား မဝယ္ရေသးပါ။ ေက်းဇူးျပဳ၍ အရင္ ဝယ္ေပးပါ။</string>
+    <string name="drm_dialog_message_get_sign_failed">ကြန္ရက္ ခ်ဳိ႕ယြင္းခ်က္။ ေက်းဇူးျပဳ၍ အင္တာနက္ ခ်ိတ္ဆက္မႈကို စစ္ေဆးျပီး ထပ္မံ ၾကိဳးစားၾကည့္ပါ။</string>
+    <string name="drm_dialog_message_hiapp_not_installed">ေနာက္ဆုံးထြက္ AppGallery ဗားရွင္းကို အရင္ဦးစြာ ထည့္သြင္းေပးပါ။</string>
+    <string name="drm_dialog_message_no_internet">အင္တာနက္ ခ်ိတ္ဆက္မႈ မရွိပါ။ ေက်းဇူးျပဳ၍ အင္တာနက္ ခ်ိတ္ဆက္မႈကို စစ္ေဆးျပီး ထပ္မံ ၾကိဳးစားၾကည့္ပါ။</string>
+    <string name="drm_dialog_message_not_logged">သင့္ HUAWEI ID ျဖင့္ စနစ္အတြင္း ဝင္ေရာက္ေပးပါ။</string>
+    <string name="drm_dialog_message_other_errorcode">ဝယ္ယူမႈ မွတ္တမ္းကို စစ္ေဆးရန္ မေအာင္ျမင္ပါ၊ ခ်ဳိ႕ယြင္းခ်က္ ကုဒ္- %s. ေက်းဇူးျပဳ၍ AppGallery သုံးစြဲသူ ဝန္ေဆာင္မႈဌာနသို႔ ဆက္သြယ္ပါ။</string>
+    <string name="drm_dialog_message_over_limit">သင္ (%s) သည္ ဤအက္ပ္ႏွင့္ တြဲဖက္ သုံးစြဲႏိုင္သည့္ အမ်ားဆုံး စက္အေရအတြက္ထက္ ေက်ာ္လြန္သြားပါျပီ။ အျခားေသာ HUAWEI ID သို႔ ေျပာင္း၍ ထပ္မံ ဝယ္ယူေပးပါ။</string>
+    <string name="drm_dialog_message_over_limit_without_name">ဤအက္ပ္အတြက္ ကန္႔သတ္ထားသည့္ စက္ပမာဏသို႔ ေရာက္ရွိသြားပါျပီ။ အျခားအေကာင့္ျဖင့္ ထပ္ၾကိဳးစားၾကည့္ပါ။</string>
+    <string name="drm_dialog_message_user_interrupt">ဝယ္ယူမႈ မွတ္တမ္းကို စစ္ေဆးရန္ မေအာင္ျမင္ပါ။ ေက်းဇူးျပဳ၍ ထပ္မံ ႀကိဳးစားပါ။</string>
+    <string name="drm_dialog_message_waiting">ဝယ္ယူမႈ မွတ္တမ္းအား စစ္ေဆးေနဆဲ... ေက်းဇူးျပဳ၍ ေစာင့္ပါ။</string>
+    <string name="drm_dialog_text_buy">ဝယ္ယူမည္</string>
+    <string name="drm_dialog_text_confirm">အိုေက</string>
+    <string name="drm_dialog_text_hasknow">အိုေက</string>
+    <string name="drm_dialog_text_install">ထည့္သြင္းမည္</string>
+    <string name="drm_dialog_text_login">ဝင္မည္</string>
+    <string name="drm_dialog_text_ok">အိုေက</string>
+    <string name="drm_dialog_text_quit">ထြက္မည္</string>
+    <string name="drm_dialog_text_retry">အိုေက</string>
+    <string name="hms_apk_not_installed_hints">%1$s ရွိ အခ်ိဳ႕လုပ္ေဆာင္ခ်က္မ်ားသည္ သင့္စက္တြင္ မထည့္သြင္းထားေသာ HMS Core မရွိဘဲ ေကာင္းစြာ အလုပ္လုပ္ႏိုင္မည္ မဟုတ္ပါ။</string>
+    <string name="hms_bindfaildlg_message">%1$s သည္ HMS Core ကို သုံး၍ မရႏိုင္ပါ။ အေကာင္းဆုံး ျမွင့္တင္ေရး (ဖုန္းမန္ေနဂ်ာ)ကို ဖြင့္ပါ သို႔မဟုတ္ ဆက္တင္သို႔ သြားပါ၊ ထို႔ေနာက္ %2$s အတြက္ ခြင့္ျပဳခ်က္မ်ား (ေအာ္တို ဖြင့္ျခင္းႏွင့္ ဆင့္ပြား ဖြင့္မႈ အပါအဝင္) အားလုံးကို ဖြင့္ေပးျပီး ထပ္ၾကိဳးစားၾကည့္ပါ။</string>
+    <string name="hms_confirm">အိုေက</string>
+    <string name="hms_is_spoof">သင့္စက္တြင္ HMS Core (%1$s) ၏ တရားမဝင္ ဗားရွင္းကို ထည့္သြင္းထားပုံေပၚပါသည္။ ဆက္တင္မွတစ္ဆင့္ HMS Core ကို ထည့္သြင္းထားမႈမွ ဖ်က္ပစ္ျပီး တရားဝင္ ဗားရွင္းကို ထည့္သြင္းရန္ ဤအက္ပ္သို႔ ျပန္သြားပါ။</string>
+    <string name="hms_spoof_hints">မွတ္ခ်က္</string>
+</resources>

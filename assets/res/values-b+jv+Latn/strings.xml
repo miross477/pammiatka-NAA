@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">Toko apl</string>
+    <string name="drm_dialog_message_agreement">Sarujuki syarat layanan %s iki dhisik.</string>
+    <string name="drm_dialog_message_apptouch_not_logged">Logina dhisik.</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">%1$s perlu diinstal kanggo nggunakake apl iki. Undhuh saiki?</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">Ora bisa mriksa riwayat blanja (%s error). Kontak layanan pelanggan.</string>
+    <string name="drm_dialog_message_check_failed">Apl iki ora dituku nggunakake akun iki (%s). Tuku apl iki utawa ngalih menyang akun liyane.</string>
+    <string name="drm_dialog_message_check_failed_without_name">Sampeyan durung nuku apl iki. Tukunen iki dhisik.</string>
+    <string name="drm_dialog_message_get_sign_failed">Jaringan error. Priksa sambungan internet lan coba maneh.</string>
+    <string name="drm_dialog_message_hiapp_not_installed">Instal versi AppGallery sing paling anyar dhisik.</string>
+    <string name="drm_dialog_message_no_internet">Ora ana sambungan internet. Priksa sambungan internet lan coba maneh.</string>
+    <string name="drm_dialog_message_not_logged">Login nganggo ID HUAWEI sampeyan.</string>
+    <string name="drm_dialog_message_other_errorcode">Gagal mriksa riwayat tetuku, kode error: %s. Kontak layanan pelanggan AppGallery.</string>
+    <string name="drm_dialog_message_over_limit">Sampeyan (%s) wis ngluwihi jumlah layanan maksimal singbisa digunakake nganggo apl iki. Ngaliha menyang ID HUAWEI liyane lan tuku maneh.</string>
+    <string name="drm_dialog_message_over_limit_without_name">Sampeyan wis tekan watesan piranti kanggo apl iki. Cobanen maneh nganggo akun sing beda.</string>
+    <string name="drm_dialog_message_user_interrupt">Gagal mriksa riwayat tetuku. Coba maneh.</string>
+    <string name="drm_dialog_message_waiting">Mriksa riwayat tetuku... Enteni dhisik.</string>
+    <string name="drm_dialog_text_buy">Tuku</string>
+    <string name="drm_dialog_text_confirm">OK</string>
+    <string name="drm_dialog_text_hasknow">OK</string>
+    <string name="drm_dialog_text_install">Instal</string>
+    <string name="drm_dialog_text_login">Login</string>
+    <string name="drm_dialog_text_ok">OK</string>
+    <string name="drm_dialog_text_quit">Metu</string>
+    <string name="drm_dialog_text_retry">OK</string>
+    <string name="hms_apk_not_installed_hints">Sawetara fitur ing %1$s bisa uga ora mlaku kanthi bener tanpa HMS Core, sing durung diinstal ing piranti.</string>
+    <string name="hms_bindfaildlg_message">%1$s ora bisa nggunakake HMS Core. Luncurake Pangoptimal (Atur Ponsel) utawa bukak Setelan kanggo ngaktifake kabeh izin kanggo %2$s (kalebu luncurake otomatis lan paluncuran kaloro), banjur coba maneh.</string>
+    <string name="hms_confirm">OK</string>
+    <string name="hms_is_spoof">Kayane HMS Core (%1$s) sing diinstal ing piranti sampeyan kuwi versi bajakan. Busak instalan HMS Core saka Setelan banjur mbalika menyang apl iki kanggo nginstal versi sing resmi.</string>
+    <string name="hms_spoof_hints">Cathetan</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">[CS_903449]_The app store</string>
+    <string name="drm_dialog_message_agreement">[CS_839036]_Please agree to the %s terms of service first.</string>
+    <string name="drm_dialog_message_apptouch_not_logged">[CS_645739]_Please log in first.</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">[CS_909022]_%1$s needs to be installed to use this app. Download now?</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">[CS_645736]_Unable to check purchase history (error %s). Contact customer service.</string>
+    <string name="drm_dialog_message_check_failed">[CS_331299]_This app was not purchased using this account (%s). Purchase the app or switch to another account.</string>
+    <string name="drm_dialog_message_check_failed_without_name">[CS_331292]_You have not purchased this app. Please purchase it first.</string>
+    <string name="drm_dialog_message_get_sign_failed">[CS_331284]_Network error. Please check your Internet connection and try again.</string>
+    <string name="drm_dialog_message_hiapp_not_installed">[CS_331288]_Please install the latest version of AppGallery first.</string>
+    <string name="drm_dialog_message_no_internet">[CS_331290]_No Internet connection. Check your network settings and try again.</string>
+    <string name="drm_dialog_message_not_logged">[CS_331291]_Please log in with your HUAWEI ID.</string>
+    <string name="drm_dialog_message_other_errorcode">[CS_331287]_Failed to check purchase history, error code: %s. Please contact AppGallery customer service.</string>
+    <string name="drm_dialog_message_over_limit">[CS_331297]_You (%s) have exceeded the maximum number of devices that can be used with this app. Please switch to another HUAWEI ID and purchase again.</string>
+    <string name="drm_dialog_message_over_limit_without_name">[CS_344218]_You have reached the device limit for this app. Please try again with a different account.</string>
+    <string name="drm_dialog_message_user_interrupt">[CS_331285]_Failed to check purchase history. Please try again.</string>
+    <string name="drm_dialog_message_waiting">[CS_331296]_Checking purchase history… Please wait.</string>
+    <string name="drm_dialog_text_buy">[CS_331293]_Purchase</string>
+    <string name="drm_dialog_text_confirm">[CS_645741]_OK</string>
+    <string name="drm_dialog_text_hasknow">[CS_331289]_OK</string>
+    <string name="drm_dialog_text_install">[CS_331301]_Install</string>
+    <string name="drm_dialog_text_login">[CS_331295]_Log in</string>
+    <string name="drm_dialog_text_ok">[CS_331298]_OK</string>
+    <string name="drm_dialog_text_quit">[CS_331294]_Quit</string>
+    <string name="drm_dialog_text_retry">[CS_331302]_OK</string>
+</resources>

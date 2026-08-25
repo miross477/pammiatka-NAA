@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drm_appstore_name">Te toa taupānga</string>
+    <string name="drm_dialog_message_agreement">Me whakaae ki ngā ture ratonga a %s i te tuatahi.</string>
+    <string name="drm_dialog_message_apptouch_not_logged">Takiuru anō i te tuatahi.</string>
+    <string name="drm_dialog_message_apptouch_notinstalled">Me tāuta a %1$s hei whakamahi i tēnei āhuahira. Tikiake ināianei?</string>
+    <string name="drm_dialog_message_apptouch_other_errorcode">Tē taea te tirotiro te hītori hokonga (hapa %s). Whakapā atu ki te ratonga kiritaki.</string>
+    <string name="drm_dialog_message_check_failed">Kāore i hokona tēnei taupānga mā tēnei pūkete (%s). Hokona mai te taupānga, whakawhiti rānei ki pūkete kē.</string>
+    <string name="drm_dialog_message_check_failed_without_name">Kāore anō kia hokona mai e koe tēnei taupānga. Me hoko mai i te tuatahi.</string>
+    <string name="drm_dialog_message_get_sign_failed">Hapa whatunga. Tirohia tō tūhononga Ipurangi ka ngana anō.</string>
+    <string name="drm_dialog_message_hiapp_not_installed">Tāutatia te putanga hōu rawa o te AppGallery i te tuatahi.</string>
+    <string name="drm_dialog_message_no_internet">Kāore he tūhononga Ipurangi. Tirohia tō tūhononga Ipurangi ka ngana anō.</string>
+    <string name="drm_dialog_message_not_logged">Takiuru me tō HUAWEI ID.</string>
+    <string name="drm_dialog_message_other_errorcode">I rahua te tirotiro hītori hoko, waehere hapa: %s. Me whakapā atu ki te ratonga kiritaki AppGallery.</string>
+    <string name="drm_dialog_message_over_limit">Kua eke i a koe (%s) te tau mōrahi o ngā pūrere ka taea te whakamahi me tēnei taupānga. Me whakawhiti ki tētahi atu HUAWEI ID me te hoko mai anō.</string>
+    <string name="drm_dialog_message_over_limit_without_name">Kua eke i a koe te pūrere tepe mō tēnei taupānga. Me ngana anō mā tētahi kāri kē.</string>
+    <string name="drm_dialog_message_user_interrupt">I rahua te tirotiro hītori kaiutu. Me ngana anō.</string>
+    <string name="drm_dialog_message_waiting">Tirotiro hītori hoko ana... Taihoa.</string>
+    <string name="drm_dialog_text_buy">Hoko</string>
+    <string name="drm_dialog_text_confirm">ĀE</string>
+    <string name="drm_dialog_text_hasknow">ĀE</string>
+    <string name="drm_dialog_text_install">Tāuta</string>
+    <string name="drm_dialog_text_login">Takiuru</string>
+    <string name="drm_dialog_text_ok">ĀE</string>
+    <string name="drm_dialog_text_quit">Mutu</string>
+    <string name="drm_dialog_text_retry">ĀE</string>
+    <string name="hms_apk_not_installed_hints">Kāore pea e mahi tika ētahi āhuahira i %1$s ki te kore te HMS Core, ā, kāore i te tāuta ki tō pūrere.</string>
+    <string name="hms_bindfaildlg_message">Kāore e taea e %1$s te whakamahi HMS Core. Whakarewatia te Pūarotau (Pūwhakahaere Waea), haere rānei ki Ngā Tautuhinga, whakahohea ngā taupānga katoa mō %2$s (tae atu ki whakarewa-aunoa me te whakarewa tuarua), ka ngana anō.</string>
+    <string name="hms_confirm">ĀE</string>
+    <string name="hms_is_spoof">Te āhua nei kua putanga manakore tāu o HMS Core (%1$s) kua tāutahia ki tō pūrere. Me tangotāuta i te HMS Core mai i Ngā tautuhinga ka hoki ki tēnei taupānga hei tāuta i te putanga whaimana.</string>
+    <string name="hms_spoof_hints">Kia mōhio</string>
+</resources>
