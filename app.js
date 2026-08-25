@@ -10,12 +10,35 @@ const $ = id => document.getElementById(id);
 function value(raw = '') {
   if (!raw) return '';
   const match = raw.match(/^@string\/(.+)$/);
-  return match ? (strings[match[1]] || match[1]) : raw.replace(/^@android:string\//, '');
+  const resolved = match ? (strings[match[1]] || match[1]) : raw.replace(/^@android:string\//, '');
+  return resolved.replace(/\\n/g, '\n');
 }
 
 function resourceUrl(ref = '') {
   const match = ref.match(/^@(?:drawable|mipmap)\/(.+)$/);
   return match ? `assets/res/drawable/${match[1]}.png` : '';
+}
+
+function androidColor(value = '') {
+  const colors = {
+    '@android:color/holo_orange_light': '#ff9800',
+    '@android:color/holo_orange_dark': '#e65100',
+    '@android:color/holo_blue_dark': '#1565c0',
+    '@android:color/holo_blue_light': '#039be5',
+    '@android:color/holo_green_dark': '#2e7d32',
+    '@android:color/holo_green_light': '#43a047',
+    '@android:color/holo_red_dark': '#c62828',
+    '@android:color/holo_red_light': '#e53935'
+  };
+  return colors[value] || (/^#[0-9a-f]{3,8}$/i.test(value) ? value : '');
+}
+
+function applyAndroidStyle(element, node) {
+  const background = androidColor(node.getAttribute('android:background'));
+  const color = androidColor(node.getAttribute('android:textColor'));
+  if (background) element.style.backgroundColor = background;
+  if (color) element.style.color = color;
+  if (node.getAttribute('android:textStyle')?.includes('bold')) element.style.fontWeight = '700';
 }
 
 function childElements(node) {
@@ -29,6 +52,7 @@ function renderNode(node) {
     const button = document.createElement('button');
     button.type = 'button';
     button.textContent = text || 'Открыть';
+    applyAndroidStyle(button, node);
     const handler = node.getAttribute('android:onClick');
     const target = routes[current]?.handlers?.[handler];
     if (target && routes[target]) button.addEventListener('click', () => openScreen(target));
@@ -36,9 +60,11 @@ function renderNode(node) {
     return button;
   }
   if (tag === 'TextView' || tag === 'CheckedTextView') {
-    const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
+    if (text === 'Placeholder text') return document.createDocumentFragment();
+    const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textAppearance')?.includes('.Large') || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
     const element = document.createElement(title ? 'h2' : 'p');
     element.textContent = text;
+    applyAndroidStyle(element, node);
     return element;
   }
   if (tag === 'ImageView') {
@@ -55,7 +81,7 @@ function renderNode(node) {
     return input;
   }
   const wrap = document.createElement('div');
-  if (tag === 'LinearLayout' && node.getAttribute('android:orientation') !== 'vertical') wrap.className = 'row';
+  if ((tag === 'LinearLayout' && node.getAttribute('android:orientation') !== 'vertical') || tag === 'TableRow') wrap.className = 'row';
   childElements(node).forEach(child => wrap.append(renderNode(child)));
   return wrap;
 }
@@ -80,7 +106,7 @@ async function openScreen(screen, addHistory = true) {
     container.className = 'android-layout';
     container.append(renderNode(layout));
     $('screen').replaceChildren(container);
-    $('title').textContent = screen === ROOT ? 'Памятка ДПС' : (routes[screen].title || 'Справочник');
+    $('title').textContent = 'Памятка ДПС';
     $('back').disabled = history.length === 0;
   } catch (error) {
     $('screen').replaceChildren(Object.assign(document.createElement('p'), { className: 'empty', textContent: error.message }));
