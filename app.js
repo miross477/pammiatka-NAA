@@ -60,6 +60,11 @@ function renderNode(node) {
     button.type = 'button';
     button.textContent = text || 'Открыть';
     applyAndroidStyle(button, node);
+    const actionText = text.toLowerCase();
+    if (actionText.includes('фабула')) button.classList.add('action-fabula');
+    else if (actionText.includes('пленум')) button.classList.add('action-plenum');
+    else if (actionText.startsWith('гл.')) button.classList.add('action-chapter');
+    else if (/^п\.\s*\d/.test(actionText)) button.classList.add('action-rule');
     const handler = node.getAttribute('android:onClick');
     const target = routes[current]?.handlers?.[handler];
     if (target && routes[target]) button.addEventListener('click', () => openScreen(target));

@@ -16,6 +16,10 @@ input[type="search"] { width: 100%; min-height: 38px; border: 1px solid #aeb8c2;
 .android-layout h2 { margin: 5px 3px 10px; font-size: 17px; line-height: 1.25; }
 .android-layout button { display: block; width: 100%; min-height: 39px; margin: 2px 0; border: 1px solid #bababa; border-radius: 2px; padding: 7px 8px; color: #1f1f1f; font: inherit; font-size: 14px; text-align: center; background: #f5f5f5; box-shadow: inset 0 1px #fff; }
 .android-layout button:active { filter: brightness(.94); }
+.android-layout button.action-fabula { background: #f4b000 !important; border-color: #d99400; color: #3a2700 !important; font-weight: 700; }
+.android-layout button.action-rule { background: #0878c9 !important; border-color: #0869af; color: #fff !important; font-weight: 700; }
+.android-layout button.action-plenum { background: #2439a5 !important; border-color: #1c2f8c; color: #fff !important; font-weight: 700; }
+.android-layout button.action-chapter { background: #109ac3 !important; border-color: #087da4; color: #fff !important; font-weight: 700; }
 .android-layout img { height: auto; margin: 8px auto; display: block; }
 .android-layout .row { display: flex; gap: 2px; }
 .android-layout .row > * { flex: 1; min-width: 0; }
