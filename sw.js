@@ -1,12 +1,17 @@
-const CACHE = 'pamiatka-dps-v7';
+const CACHE = 'pamiatka-dps-v8';
 const CORE = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './data/routes.json', './data/strings.xml'];
 self.addEventListener('install', event => event.waitUntil((async () => {
   const cache = await caches.open(CACHE);
   const routes = await fetch('./data/routes.json').then(response => response.json());
   const layouts = Object.values(routes).map(route => `./assets/res/layout/${route.layout}.xml`);
   await cache.addAll([...CORE, ...layouts]);
+  await self.skipWaiting();
 })()));
-self.addEventListener('activate', event => event.waitUntil(self.clients.claim()));
+self.addEventListener('activate', event => event.waitUntil((async () => {
+  const names = await caches.keys();
+  await Promise.all(names.filter(name => name !== CACHE).map(name => caches.delete(name)));
+  await self.clients.claim();
+})()));
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
