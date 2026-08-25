@@ -7,6 +7,13 @@ let searchIndex = null;
 
 const $ = id => document.getElementById(id);
 
+function templateDate() {
+  const now = new Date();
+  const date = new Intl.DateTimeFormat('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(now);
+  const time = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
+  return `${date} в ${time} час. на адрес Иванов И.И.`;
+}
+
 function value(raw = '') {
   if (!raw) return '';
   const match = raw.match(/^@string\/(.+)$/);
@@ -47,7 +54,7 @@ function childElements(node) {
 
 function renderNode(node) {
   const tag = node.tagName.replace(/^.*:/, '');
-  const text = value(node.getAttribute('android:text'));
+  let text = value(node.getAttribute('android:text'));
   if (tag === 'Button') {
     const button = document.createElement('button');
     button.type = 'button';
@@ -60,11 +67,15 @@ function renderNode(node) {
     return button;
   }
   if (tag === 'TextView' || tag === 'CheckedTextView') {
+    const isDateTemplate = node.getAttribute('android:id') === '@+id/dateTimeTextView';
+    if (isDateTemplate) text = templateDate();
     if (text === 'Placeholder text') return document.createDocumentFragment();
     const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textAppearance')?.includes('.Large') || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
     const element = document.createElement(title ? 'h2' : 'p');
     element.textContent = text;
     applyAndroidStyle(element, node);
+    if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
+    if (isDateTemplate) element.classList.add('template-date');
     return element;
   }
   if (tag === 'ImageView') {
@@ -153,6 +164,13 @@ async function init() {
   $('back').addEventListener('click', () => { if (history.length) openScreen(history.pop(), false); });
   $('home').addEventListener('click', () => { history = []; openScreen(ROOT, false); });
   $('search').addEventListener('input', event => search(event.target.value));
+  window.addEventListener('hashchange', () => {
+    const requested = decodeURIComponent(location.hash.slice(1));
+    if (routes[requested] && requested !== current) {
+      history.push(current);
+      openScreen(requested, false);
+    }
+  });
   const requested = decodeURIComponent(location.hash.slice(1));
   openScreen(routes[requested] ? requested : ROOT, false);
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
