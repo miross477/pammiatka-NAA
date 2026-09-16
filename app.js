@@ -125,7 +125,10 @@ function androidColor(value = '') {
     '@android:color/holo_green_dark': '#2e7d32',
     '@android:color/holo_green_light': '#43a047',
     '@android:color/holo_red_dark': '#c62828',
-    '@android:color/holo_red_light': '#e53935'
+    '@android:color/holo_red_light': '#e53935',
+    '@color/colorPrimary': '#7e8dde',
+    '@color/colorPrimaryDark': '#303f9f',
+    '@color/colorAccent': '#303f9f'
   };
   return colors[value] || (/^#[0-9a-f]{3,8}$/i.test(value) ? value : '');
 }
