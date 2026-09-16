@@ -2,6 +2,7 @@ const ROOT = 'Main253Activity';
 let routes = {};
 let strings = {};
 let styledRuns = {};
+let externalLinks = {};
 let current = ROOT;
 let history = [];
 let searchIndex = null;
@@ -235,7 +236,9 @@ function renderNode(node) {
     else if (/^п\.\s*\d/.test(actionText)) button.classList.add('action-rule');
     const handler = node.getAttribute('android:onClick');
     const target = routes[current]?.handlers?.[handler];
-    if (target && routes[target]) button.addEventListener('click', () => openScreen(target));
+    const externalUrl = externalLinks[current]?.buttons?.[androidId(node.getAttribute('android:id'))] || externalLinks[current]?.handlers?.[handler];
+    if (externalUrl) button.addEventListener('click', () => window.open(externalUrl, '_blank', 'noopener'));
+    else if (target && routes[target]) button.addEventListener('click', () => openScreen(target));
     else button.disabled = true;
     return button;
   }
@@ -349,13 +352,15 @@ async function search(query) {
 }
 
 async function init() {
-  const [routeData, stringXml, styleData] = await Promise.all([
+  const [routeData, stringXml, styleData, linkData] = await Promise.all([
     fetch('data/routes.json').then(r => r.json()),
     fetch('data/strings.xml').then(r => r.text()),
-    fetch('data/styled-runs.json').then(r => r.json()).catch(() => ({}))
+    fetch('data/styled-runs.json').then(r => r.json()).catch(() => ({})),
+    fetch('data/external-links.json').then(r => r.json()).catch(() => ({}))
   ]);
   routes = routeData;
   styledRuns = styleData;
+  externalLinks = linkData;
   const doc = new DOMParser().parseFromString(stringXml, 'application/xml');
   doc.querySelectorAll('string').forEach(node => strings[node.getAttribute('name')] = node.textContent || '');
   $('back').addEventListener('click', () => { if (history.length) openScreen(history.pop(), false); });
