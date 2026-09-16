@@ -22,17 +22,30 @@ function value(raw = '') {
 }
 
 function setFormattedText(element, text) {
-  const finePattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)/g;
+  const pattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)|марка,модель|номер|будучи не пристегнутым|\(пристегнута только грудная клетка и не пристегнута брюшная полость\)|в трех точках|перевозил пассажира|мопедом|без мотошлема|\(в незастегнутом мотошлеме\)|Уполномоченные лица:/gi;
   let position = 0;
-  for (const match of text.matchAll(finePattern)) {
+  for (const match of text.matchAll(pattern)) {
     element.append(document.createTextNode(text.slice(position, match.index)));
-    const amount = document.createElement('strong');
-    amount.textContent = match[1];
-    element.append(amount);
-    if (match[2]) element.append(document.createTextNode(match[2]));
-    const currency = document.createElement('strong');
-    currency.textContent = match[3];
-    element.append(currency);
+    const matchedText = match[0];
+    if (match[1]) {
+      const amount = document.createElement('strong');
+      amount.textContent = match[1];
+      element.append(amount);
+      if (match[2]) element.append(document.createTextNode(match[2]));
+      const currency = document.createElement('strong');
+      currency.textContent = match[3];
+      element.append(currency);
+    } else {
+      const normalized = matchedText.toLowerCase();
+      const isItalic = normalized === 'марка,модель' || normalized === 'номер' || normalized === '(в незастегнутом мотошлеме)';
+      const emphasis = document.createElement(isItalic ? 'em' : 'strong');
+      emphasis.textContent = matchedText;
+      if (normalized === 'марка,модель' || normalized === 'номер' || normalized === 'уполномоченные лица:') {
+        emphasis.style.textDecoration = 'underline';
+      }
+      if (normalized === 'марка,модель' || normalized === 'номер') emphasis.style.fontStyle = 'italic';
+      element.append(emphasis);
+    }
     position = match.index + match[0].length;
   }
   element.append(document.createTextNode(text.slice(position)));
@@ -94,12 +107,14 @@ function renderNode(node) {
   }
   if (tag === 'TextView' || tag === 'CheckedTextView') {
     const isDateTemplate = node.getAttribute('android:id') === '@+id/dateTimeTextView';
+    const isFabula = node.getAttribute('android:text')?.startsWith('@string/fabul');
     if (isDateTemplate) text = templateDate();
     if (text === 'Placeholder text') return document.createDocumentFragment();
     const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textAppearance')?.includes('.Large') || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
     const element = document.createElement(title ? 'h2' : 'p');
     setFormattedText(element, text);
     applyAndroidStyle(element, node);
+    if (isFabula) element.style.fontWeight = '400';
     if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
     if (isDateTemplate) element.classList.add('template-date');
     return element;
