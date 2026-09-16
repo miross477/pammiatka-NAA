@@ -22,6 +22,7 @@ function templateDate() {
 }
 
 function value(raw = '') {
+  raw ||= '';
   if (!raw) return '';
   const match = raw.match(/^@string\/(.+)$/);
   const resolved = match ? (strings[match[1]] || match[1]) : raw.replace(/^@android:string\//, '');
