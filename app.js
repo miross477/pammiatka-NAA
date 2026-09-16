@@ -262,6 +262,11 @@ function renderNode(node) {
     if (!src) return document.createDocumentFragment();
     const image = document.createElement('img');
     image.src = src;
+    image.addEventListener('error', () => {
+      if (image.dataset.nodpiFallback) return;
+      image.dataset.nodpiFallback = 'true';
+      image.src = src.replace('/drawable/', '/drawable-nodpi/');
+    });
     image.alt = node.getAttribute('android:contentDescription') || '';
     return image;
   }

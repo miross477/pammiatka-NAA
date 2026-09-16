@@ -1,4 +1,4 @@
-const CACHE = 'pamiatka-dps-v30';
+const CACHE = 'pamiatka-dps-v31';
 const CORE = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './data/routes.json', './data/strings.xml', './data/styled-runs.json', './data/external-links.json'];
 self.addEventListener('install', event => event.waitUntil((async () => {
   const cache = await caches.open(CACHE);
