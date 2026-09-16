@@ -21,6 +21,23 @@ function value(raw = '') {
   return resolved.replace(/\\n/g, '\n');
 }
 
+function setFormattedText(element, text) {
+  const finePattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)/g;
+  let position = 0;
+  for (const match of text.matchAll(finePattern)) {
+    element.append(document.createTextNode(text.slice(position, match.index)));
+    const amount = document.createElement('strong');
+    amount.textContent = match[1];
+    element.append(amount);
+    if (match[2]) element.append(document.createTextNode(match[2]));
+    const currency = document.createElement('strong');
+    currency.textContent = match[3];
+    element.append(currency);
+    position = match.index + match[0].length;
+  }
+  element.append(document.createTextNode(text.slice(position)));
+}
+
 function resourceUrl(ref = '') {
   const match = ref.match(/^@(?:drawable|mipmap)\/(.+)$/);
   return match ? `assets/res/drawable/${match[1]}.png` : '';
@@ -47,7 +64,6 @@ function applyAndroidStyle(element, node) {
   if (color) element.style.color = color;
   if (node.getAttribute('android:textStyle')?.includes('bold')) element.style.fontWeight = '700';
   if (node.getAttribute('android:textStyle')?.includes('italic')) element.style.fontStyle = 'italic';
-  if (node.getAttribute('android:textAppearance')?.includes('.Body2')) element.style.fontWeight = '700';
   const weight = Number(node.getAttribute('android:layout_weight'));
   if (weight > 0) element.style.flexGrow = String(weight);
 }
@@ -81,7 +97,7 @@ function renderNode(node) {
     if (text === 'Placeholder text') return document.createDocumentFragment();
     const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textAppearance')?.includes('.Large') || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
     const element = document.createElement(title ? 'h2' : 'p');
-    element.textContent = text;
+    setFormattedText(element, text);
     applyAndroidStyle(element, node);
     if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
     if (isDateTemplate) element.classList.add('template-date');
