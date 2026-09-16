@@ -46,6 +46,10 @@ function applyAndroidStyle(element, node) {
   if (background) element.style.backgroundColor = background;
   if (color) element.style.color = color;
   if (node.getAttribute('android:textStyle')?.includes('bold')) element.style.fontWeight = '700';
+  if (node.getAttribute('android:textStyle')?.includes('italic')) element.style.fontStyle = 'italic';
+  if (node.getAttribute('android:textAppearance')?.includes('.Body2')) element.style.fontWeight = '700';
+  const weight = Number(node.getAttribute('android:layout_weight'));
+  if (weight > 0) element.style.flexGrow = String(weight);
 }
 
 function childElements(node) {
@@ -97,6 +101,25 @@ function renderNode(node) {
     return input;
   }
   const wrap = document.createElement('div');
+  if (tag === 'RelativeLayout') {
+    wrap.className = 'relative-layout';
+    const children = childElements(node);
+    for (let index = 0; index < children.length; index += 1) {
+      const child = children[index];
+      const next = children[index + 1];
+      const isLeftButton = child.tagName.replace(/^.*:/, '') === 'Button' && (child.hasAttribute('android:layout_toLeftOf') || child.hasAttribute('android:layout_toStartOf'));
+      if (isLeftButton && next?.tagName.replace(/^.*:/, '') === 'Button') {
+        const pair = document.createElement('div');
+        pair.className = 'relative-button-pair';
+        pair.append(renderNode(child), renderNode(next));
+        wrap.append(pair);
+        index += 1;
+      } else {
+        wrap.append(renderNode(child));
+      }
+    }
+    return wrap;
+  }
   if ((tag === 'LinearLayout' && node.getAttribute('android:orientation') !== 'vertical') || tag === 'TableRow') wrap.className = 'row';
   childElements(node).forEach(child => wrap.append(renderNode(child)));
   return wrap;
@@ -114,6 +137,7 @@ async function openScreen(screen, addHistory = true) {
   if (!routes[screen]) return;
   if (addHistory && current !== screen) history.push(current);
   current = screen;
+  document.body.classList.toggle('home-screen', screen === ROOT);
   location.hash = encodeURIComponent(screen);
   $('screen').replaceChildren(Object.assign(document.createElement('p'), { className: 'loading', textContent: 'Загрузка…' }));
   try {
