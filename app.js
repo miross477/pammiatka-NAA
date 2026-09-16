@@ -106,6 +106,70 @@ function childElements(node) {
   return [...node.children].filter(child => child.nodeType === 1);
 }
 
+function androidId(reference) {
+  return reference?.replace(/^@\+?id\//, '');
+}
+
+function relativeLayoutGroups(children) {
+  const parent = children.map((_, index) => index);
+  const find = index => parent[index] === index ? index : (parent[index] = find(parent[index]));
+  const join = (left, right) => {
+    const leftRoot = find(left);
+    const rightRoot = find(right);
+    if (leftRoot !== rightRoot) parent[rightRoot] = leftRoot;
+  };
+  const indexById = new Map();
+  children.forEach((child, index) => {
+    const id = androidId(child.getAttribute('android:id'));
+    if (id) indexById.set(id, index);
+  });
+
+  // Elements are on the same Android "line" only if they explicitly share a
+  // top/bottom edge, or are both placed below the same element.  This avoids
+  // treating a text block referring to an older button as a neighbouring cell.
+  children.forEach((child, index) => {
+    ['android:layout_alignTop', 'android:layout_alignBottom', 'android:layout_alignBaseline'].forEach(attribute => {
+      const target = indexById.get(androidId(child.getAttribute(attribute)));
+      if (target !== undefined) join(index, target);
+    });
+    ['android:layout_toLeftOf', 'android:layout_toStartOf', 'android:layout_toRightOf', 'android:layout_toEndOf'].forEach(attribute => {
+      const target = indexById.get(androidId(child.getAttribute(attribute)));
+      if (target === undefined) return;
+      const below = androidId(child.getAttribute('android:layout_below'));
+      const targetBelow = androidId(children[target].getAttribute('android:layout_below'));
+      if (below && below === targetBelow) join(index, target);
+    });
+  });
+
+  const groups = new Map();
+  children.forEach((child, index) => {
+    const root = find(index);
+    if (!groups.has(root)) groups.set(root, { members: [], dependsOn: new Set() });
+    groups.get(root).members.push(index);
+  });
+  children.forEach((child, index) => {
+    const target = indexById.get(androidId(child.getAttribute('android:layout_below')));
+    if (target === undefined) return;
+    const from = find(index);
+    const to = find(target);
+    if (from !== to) groups.get(from).dependsOn.add(to);
+  });
+
+  const ordered = [];
+  const pending = new Map([...groups].map(([root, group]) => [root, new Set(group.dependsOn)]));
+  while (pending.size) {
+    const ready = [...pending.entries()]
+      .filter(([, dependencies]) => dependencies.size === 0)
+      .map(([root]) => root)
+      .sort((left, right) => groups.get(left).members[0] - groups.get(right).members[0]);
+    const next = ready[0] ?? [...pending.keys()].sort((left, right) => groups.get(left).members[0] - groups.get(right).members[0])[0];
+    ordered.push(groups.get(next).members);
+    pending.delete(next);
+    pending.forEach(dependencies => dependencies.delete(next));
+  }
+  return ordered;
+}
+
 function renderNode(node) {
   const tag = node.tagName.replace(/^.*:/, '');
   const rawText = node.getAttribute('android:text') || '';
@@ -159,20 +223,16 @@ function renderNode(node) {
   if (tag === 'RelativeLayout') {
     wrap.className = 'relative-layout';
     const children = childElements(node);
-    for (let index = 0; index < children.length; index += 1) {
-      const child = children[index];
-      const next = children[index + 1];
-      const isLeftButton = child.tagName.replace(/^.*:/, '') === 'Button' && (child.hasAttribute('android:layout_toLeftOf') || child.hasAttribute('android:layout_toStartOf'));
-      if (isLeftButton && next?.tagName.replace(/^.*:/, '') === 'Button') {
+    relativeLayoutGroups(children).forEach(indices => {
+      if (indices.length === 2 && indices.every(index => children[index].tagName.replace(/^.*:/, '') === 'Button')) {
         const pair = document.createElement('div');
         pair.className = 'relative-button-pair';
-        pair.append(renderNode(child), renderNode(next));
+        indices.forEach(index => pair.append(renderNode(children[index])));
         wrap.append(pair);
-        index += 1;
       } else {
-        wrap.append(renderNode(child));
+        indices.forEach(index => wrap.append(renderNode(children[index])));
       }
-    }
+    });
     return wrap;
   }
   if ((tag === 'LinearLayout' && node.getAttribute('android:orientation') !== 'vertical') || tag === 'TableRow') wrap.className = 'row';
