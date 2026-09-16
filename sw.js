@@ -1,5 +1,5 @@
-const CACHE = 'pamiatka-dps-v33';
-const CORE = ['./', './index.html', './styles.css?v=33', './app.js?v=33', './manifest.webmanifest?v=33', './data/routes.json', './data/strings.xml', './data/styled-runs.json', './data/external-links.json', './assets/res/values/arrays.xml'];
+const CACHE = 'pamiatka-dps-v34';
+const CORE = ['./', './index.html', './styles.css?v=34', './app.js?v=34', './manifest.webmanifest?v=34', './data/routes.json', './data/strings.xml', './data/styled-runs.json', './data/external-links.json', './assets/res/values/arrays.xml'];
 self.addEventListener('install', event => event.waitUntil((async () => {
   const cache = await caches.open(CACHE);
   const routes = await fetch('./data/routes.json').then(response => response.json());

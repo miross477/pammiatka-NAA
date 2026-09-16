@@ -18,10 +18,40 @@ const programmaticStrings = {
 // These Android screens fill a ListView from a string-array in Java rather
 // than declaring its rows in XML.  Recreate the list and its item routes.
 const programmaticLists = {
+  Main10Activity: {
+    tonir1: {
+      array: 'tonir_name',
+      screens: ['Main11Activity', 'Main12Activity', 'Main13Activity', 'Main14Activity', 'Main15Activity']
+    }
+  },
+  Main257Activity: {
+    perneis1: {
+      array: 'pernes_name',
+      screens: ['Main258Activity', 'Main259Activity', 'Main260Activity', 'Main261Activity', 'Main262Activity', 'Main263Activity', 'Main264Activity', 'Main450Activity', 'Main451Activity', 'Main452Activity', 'Main453Activity']
+    }
+  },
   Main400Activity: {
     lview: {
       array: 'npa_name',
       screens: ['Main401Activity', 'Main402Activity', 'Main403Activity', 'Main24_1Activity', 'Main255Activity', 'Main9Activity', 'Main10Activity', 'Main500Activity', 'Main502Activity', 'Main254Activity']
+    }
+  },
+  Main401Activity: {
+    lview1: {
+      array: 'koap_name',
+      screens: ['Main410Activity', 'Main411Activity', 'Main412Activity', 'Main413Activity', 'Main414Activity', 'Main415Activity', 'Main16Activity', 'Main416Activity', 'Main417Activity', 'Main418Activity', 'Main419Activity', 'Main420Activity', 'Main421Activity', 'Main422Activity', 'Main423Activity', 'Main303Activity', 'Main424Activity', 'Main425Activity', 'Main426Activity', 'Main427Activity', 'Main428Activity', 'Main429Activity', 'Main430Activity', 'Main431Activity', 'Main432Activity', 'Main433Activity', 'Main434Activity']
+    }
+  },
+  Main402Activity: {
+    lview2: {
+      array: 'polis_name',
+      screens: ['Main461Activity', 'Main17Activity', 'Main256Activity', 'Main299Activity', 'Main458Activity', 'Main435Activity', 'Main436Activity', 'Main437Activity', 'Main438Activity', 'Main439Activity', 'Main440Activity']
+    }
+  },
+  Main403Activity: {
+    lview3: {
+      array: 'nastav_name',
+      screens: ['Main441Activity', 'Main442Activity', 'Main443Activity', 'Main444Activity', 'Main445Activity', 'Main446Activity', 'Main447Activity', 'Main448Activity', 'Main449Activity']
     }
   }
 };
