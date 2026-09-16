@@ -47,7 +47,6 @@ function applyAndroidStyle(element, node) {
   if (color) element.style.color = color;
   if (node.getAttribute('android:textStyle')?.includes('bold')) element.style.fontWeight = '700';
   if (node.getAttribute('android:textStyle')?.includes('italic')) element.style.fontStyle = 'italic';
-  if (node.getAttribute('android:textAppearance')?.includes('.Body2')) element.style.fontWeight = '700';
   const weight = Number(node.getAttribute('android:layout_weight'));
   if (weight > 0) element.style.flexGrow = String(weight);
 }
