@@ -1,6 +1,7 @@
 const ROOT = 'Main253Activity';
 let routes = {};
 let strings = {};
+let arrays = {};
 let styledRuns = {};
 let externalLinks = {};
 let current = ROOT;
@@ -12,6 +13,17 @@ let searchIndex = null;
 const programmaticStrings = {
   Main145Activity: { textView119: 'fabul69' },
   Main124Activity: { textView101: 'fabul56' }
+};
+
+// These Android screens fill a ListView from a string-array in Java rather
+// than declaring its rows in XML.  Recreate the list and its item routes.
+const programmaticLists = {
+  Main400Activity: {
+    lview: {
+      array: 'npa_name',
+      screens: ['Main401Activity', 'Main402Activity', 'Main403Activity', 'Main24_1Activity', 'Main255Activity', 'Main9Activity', 'Main10Activity', 'Main500Activity', 'Main502Activity', 'Main254Activity']
+    }
+  }
 };
 
 const $ = id => document.getElementById(id);
@@ -275,6 +287,23 @@ function renderNode(node) {
     input.placeholder = value(node.getAttribute('android:hint'));
     return input;
   }
+  if (tag === 'ListView') {
+    const definition = programmaticLists[current]?.[androidId(node.getAttribute('android:id'))];
+    if (!definition) return document.createDocumentFragment();
+    const list = document.createElement('div');
+    list.className = 'android-list';
+    (arrays[definition.array] || []).forEach((label, index) => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'android-list-item';
+      item.textContent = label;
+      const target = definition.screens[index];
+      if (target && routes[target]) item.addEventListener('click', () => openScreen(target));
+      else item.disabled = true;
+      list.append(item);
+    });
+    return list;
+  }
   const wrap = document.createElement('div');
   if (tag === 'RelativeLayout') {
     wrap.className = 'relative-layout';
@@ -357,9 +386,10 @@ async function search(query) {
 }
 
 async function init() {
-  const [routeData, stringXml, styleData, linkData] = await Promise.all([
+  const [routeData, stringXml, arraysXml, styleData, linkData] = await Promise.all([
     fetch('data/routes.json').then(r => r.json()),
     fetch('data/strings.xml').then(r => r.text()),
+    fetch('assets/res/values/arrays.xml').then(r => r.text()),
     fetch('data/styled-runs.json').then(r => r.json()).catch(() => ({})),
     fetch('data/external-links.json').then(r => r.json()).catch(() => ({}))
   ]);
@@ -368,6 +398,10 @@ async function init() {
   externalLinks = linkData;
   const doc = new DOMParser().parseFromString(stringXml, 'application/xml');
   doc.querySelectorAll('string').forEach(node => strings[node.getAttribute('name')] = node.textContent || '');
+  const arraysDoc = new DOMParser().parseFromString(arraysXml, 'application/xml');
+  arraysDoc.querySelectorAll('string-array, array').forEach(node => {
+    arrays[node.getAttribute('name')] = [...node.querySelectorAll('item')].map(item => item.textContent || '');
+  });
   $('back').addEventListener('click', () => { if (history.length) openScreen(history.pop(), false); });
   $('home').addEventListener('click', () => { history = []; openScreen(ROOT, false); });
   $('search').addEventListener('input', event => search(event.target.value));
