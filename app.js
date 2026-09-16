@@ -1,6 +1,7 @@
 const ROOT = 'Main253Activity';
 let routes = {};
 let strings = {};
+let styledRuns = {};
 let current = ROOT;
 let history = [];
 let searchIndex = null;
@@ -21,7 +22,26 @@ function value(raw = '') {
   return resolved.replace(/\\n/g, '\n');
 }
 
-function setFormattedText(element, text) {
+function setStyledText(element, text, runs) {
+  let position = 0;
+  for (const run of runs) {
+    if (run.start < position || run.end > text.length) continue;
+    element.append(document.createTextNode(text.slice(position, run.start)));
+    const styled = document.createElement(run.bold ? 'strong' : 'span');
+    styled.textContent = text.slice(run.start, run.end);
+    if (run.italic) styled.style.fontStyle = 'italic';
+    if (run.underline) styled.style.textDecoration = 'underline';
+    element.append(styled);
+    position = run.end;
+  }
+  element.append(document.createTextNode(text.slice(position)));
+}
+
+function setFormattedText(element, text, stringKey) {
+  if (styledRuns[stringKey]?.length) {
+    setStyledText(element, text, styledRuns[stringKey]);
+    return;
+  }
   const pattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)|марка,модель|номер|будучи не пристегнутым|\(пристегнута только грудная клетка и не пристегнута брюшная полость\)|в трех точках|перевозил пассажира(?=, не пристегнутого)|мопедом|без мотошлема|\(в незастегнутом мотошлеме\)|Уполномоченные лица:/gi;
   let position = 0;
   for (const match of text.matchAll(pattern)) {
@@ -46,19 +66,6 @@ function setFormattedText(element, text) {
       if (normalized === 'марка,модель' || normalized === 'номер') emphasis.style.fontStyle = 'italic';
       element.append(emphasis);
     }
-    position = match.index + match[0].length;
-  }
-  element.append(document.createTextNode(text.slice(position)));
-}
-
-function setPddPoint212Text(element, text) {
-  const pattern = /п\. 2\.1\.2\.|Правила ЕЭК ООН № 16|Ремень безопасности \(ремень\):|Поясной ремень:|Диагональный ремень:|Ремень с креплением в трех точках:/g;
-  let position = 0;
-  for (const match of text.matchAll(pattern)) {
-    element.append(document.createTextNode(text.slice(position, match.index)));
-    const bold = document.createElement('strong');
-    bold.textContent = match[0];
-    element.append(bold);
     position = match.index + match[0].length;
   }
   element.append(document.createTextNode(text.slice(position)));
@@ -101,7 +108,9 @@ function childElements(node) {
 
 function renderNode(node) {
   const tag = node.tagName.replace(/^.*:/, '');
-  let text = value(node.getAttribute('android:text'));
+  const rawText = node.getAttribute('android:text') || '';
+  const stringKey = rawText.match(/^@string\/(.+)$/)?.[1];
+  let text = value(rawText);
   if (tag === 'Button') {
     const button = document.createElement('button');
     button.type = 'button';
@@ -120,21 +129,14 @@ function renderNode(node) {
   }
   if (tag === 'TextView' || tag === 'CheckedTextView') {
     const isDateTemplate = node.getAttribute('android:id') === '@+id/dateTimeTextView';
-    const isFabula = node.getAttribute('android:text')?.startsWith('@string/fabul');
-    const isPddPoint212 = node.getAttribute('android:text') === '@string/punkt20';
     if (isDateTemplate) text = templateDate();
     if (text === 'Placeholder text') return document.createDocumentFragment();
     const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textAppearance')?.includes('.Large') || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
     const element = document.createElement(title ? 'h2' : 'p');
-    if (isPddPoint212) setPddPoint212Text(element, text);
-    else setFormattedText(element, text);
+    setFormattedText(element, text, stringKey);
     applyAndroidStyle(element, node);
-    if (isFabula) element.style.fontWeight = '400';
-    if (isPddPoint212) {
-      element.classList.add('pdd-point-212');
+    if (styledRuns[stringKey]?.length) {
       element.style.fontWeight = '400';
-      element.style.fontStyle = 'normal';
-      element.style.textDecoration = 'none';
     }
     if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
     if (isDateTemplate) element.classList.add('template-date');
@@ -239,8 +241,13 @@ async function search(query) {
 }
 
 async function init() {
-  const [routeData, stringXml] = await Promise.all([fetch('data/routes.json').then(r => r.json()), fetch('data/strings.xml').then(r => r.text())]);
+  const [routeData, stringXml, styleData] = await Promise.all([
+    fetch('data/routes.json').then(r => r.json()),
+    fetch('data/strings.xml').then(r => r.text()),
+    fetch('data/styled-runs.json').then(r => r.json()).catch(() => ({}))
+  ]);
   routes = routeData;
+  styledRuns = styleData;
   const doc = new DOMParser().parseFromString(stringXml, 'application/xml');
   doc.querySelectorAll('string').forEach(node => strings[node.getAttribute('name')] = node.textContent || '');
   $('back').addEventListener('click', () => { if (history.length) openScreen(history.pop(), false); });
