@@ -6,6 +6,12 @@ let current = ROOT;
 let history = [];
 let searchIndex = null;
 
+// A few Android activities populate an otherwise empty TextView in Java code.
+// Keep those assignments here so the corresponding PWA screens are not blank.
+const programmaticStrings = {
+  Main145Activity: { textView119: 'fabul69' }
+};
+
 const $ = id => document.getElementById(id);
 
 function templateDate() {
@@ -37,9 +43,40 @@ function setStyledText(element, text, runs) {
   element.append(document.createTextNode(text.slice(position)));
 }
 
+function hasInlineMarkup(text) {
+  return /<\/?(?:b|strong|i|em|u|br)\s*\/?\s*>/i.test(text);
+}
+
+function setInlineMarkup(element, text) {
+  const source = new DOMParser().parseFromString(text, 'text/html').body;
+  const append = (from, to) => {
+    from.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        to.append(document.createTextNode(node.textContent));
+        return;
+      }
+      const tag = node.tagName.toLowerCase();
+      if (tag === 'br') {
+        to.append(document.createElement('br'));
+        return;
+      }
+      const mappedTag = tag === 'b' || tag === 'strong' ? 'strong' : tag === 'i' || tag === 'em' ? 'em' : 'span';
+      const styled = document.createElement(mappedTag);
+      if (tag === 'u') styled.style.textDecoration = 'underline';
+      append(node, styled);
+      to.append(styled);
+    });
+  };
+  append(source, element);
+}
+
 function setFormattedText(element, text, stringKey) {
   if (styledRuns[stringKey]?.length) {
     setStyledText(element, text, styledRuns[stringKey]);
+    return;
+  }
+  if (hasInlineMarkup(text)) {
+    setInlineMarkup(element, text);
     return;
   }
   const pattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)|марка,модель|номер|будучи не пристегнутым|\(пристегнута только грудная клетка и не пристегнута брюшная полость\)|в трех точках|перевозил пассажира(?=, не пристегнутого)|мопедом|без мотошлема|\(в незастегнутом мотошлеме\)|Уполномоченные лица:/gi;
@@ -172,8 +209,13 @@ function relativeLayoutGroups(children) {
 
 function renderNode(node) {
   const tag = node.tagName.replace(/^.*:/, '');
-  const rawText = node.getAttribute('android:text') || '';
-  const stringKey = rawText.match(/^@string\/(.+)$/)?.[1];
+  let rawText = node.getAttribute('android:text') || '';
+  let stringKey = rawText.match(/^@string\/(.+)$/)?.[1];
+  const injectedKey = programmaticStrings[current]?.[androidId(node.getAttribute('android:id'))];
+  if (!rawText && injectedKey) {
+    rawText = `@string/${injectedKey}`;
+    stringKey = injectedKey;
+  }
   let text = value(rawText);
   if (tag === 'Button') {
     const button = document.createElement('button');
@@ -199,7 +241,7 @@ function renderNode(node) {
     const element = document.createElement(title ? 'h2' : 'p');
     setFormattedText(element, text, stringKey);
     applyAndroidStyle(element, node);
-    if (styledRuns[stringKey]?.length) {
+    if (styledRuns[stringKey]?.length || hasInlineMarkup(text)) {
       element.style.fontWeight = '400';
     }
     if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
