@@ -262,6 +262,15 @@ async function init() {
   });
   const requested = decodeURIComponent(location.hash.slice(1));
   openScreen(routes[requested] ? requested : ROOT, false);
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+  if ('serviceWorker' in navigator) {
+    let reloadedForUpdate = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!reloadedForUpdate) {
+        reloadedForUpdate = true;
+        window.location.reload();
+      }
+    });
+    navigator.serviceWorker.register('sw.js').then(registration => registration.update());
+  }
 }
 init().catch(error => $('screen').textContent = `Ошибка загрузки: ${error.message}`);
