@@ -9,7 +9,8 @@ let searchIndex = null;
 // A few Android activities populate an otherwise empty TextView in Java code.
 // Keep those assignments here so the corresponding PWA screens are not blank.
 const programmaticStrings = {
-  Main145Activity: { textView119: 'fabul69' }
+  Main145Activity: { textView119: 'fabul69' },
+  Main124Activity: { textView101: 'fabul56' }
 };
 
 const $ = id => document.getElementById(id);
@@ -110,6 +111,7 @@ function setFormattedText(element, text, stringKey) {
 }
 
 function resourceUrl(ref = '') {
+  ref ||= '';
   const match = ref.match(/^@(?:drawable|mipmap)\/(.+)$/);
   return match ? `assets/res/drawable/${match[1]}.png` : '';
 }
@@ -250,7 +252,7 @@ function renderNode(node) {
     return element;
   }
   if (tag === 'ImageView') {
-    const src = resourceUrl(node.getAttribute('android:src'));
+    const src = resourceUrl(node.getAttribute('android:src') || node.getAttribute('app:srcCompat'));
     if (!src) return document.createDocumentFragment();
     const image = document.createElement('img');
     image.src = src;
