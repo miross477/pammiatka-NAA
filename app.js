@@ -22,7 +22,7 @@ function value(raw = '') {
 }
 
 function setFormattedText(element, text) {
-  const pattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)|марка,модель|номер|будучи не пристегнутым|\(пристегнута только грудная клетка и не пристегнута брюшная полость\)|в трех точках|перевозил пассажира|мопедом|без мотошлема|\(в незастегнутом мотошлеме\)|Уполномоченные лица:/gi;
+  const pattern = /(Штраф\s+[\d\s]+)(\s*\([^)]*\))?(\s+руб\.)|марка,модель|номер|будучи не пристегнутым|\(пристегнута только грудная клетка и не пристегнута брюшная полость\)|в трех точках|перевозил пассажира(?=, не пристегнутого)|мопедом|без мотошлема|\(в незастегнутом мотошлеме\)|Уполномоченные лица:/gi;
   let position = 0;
   for (const match of text.matchAll(pattern)) {
     element.append(document.createTextNode(text.slice(position, match.index)));
@@ -46,6 +46,19 @@ function setFormattedText(element, text) {
       if (normalized === 'марка,модель' || normalized === 'номер') emphasis.style.fontStyle = 'italic';
       element.append(emphasis);
     }
+    position = match.index + match[0].length;
+  }
+  element.append(document.createTextNode(text.slice(position)));
+}
+
+function setPddPoint212Text(element, text) {
+  const pattern = /п\. 2\.1\.2\.|Правила ЕЭК ООН № 16|Ремень безопасности \(ремень\):|Поясной ремень:|Диагональный ремень:|Ремень с креплением в трех точках:/g;
+  let position = 0;
+  for (const match of text.matchAll(pattern)) {
+    element.append(document.createTextNode(text.slice(position, match.index)));
+    const bold = document.createElement('strong');
+    bold.textContent = match[0];
+    element.append(bold);
     position = match.index + match[0].length;
   }
   element.append(document.createTextNode(text.slice(position)));
@@ -108,13 +121,21 @@ function renderNode(node) {
   if (tag === 'TextView' || tag === 'CheckedTextView') {
     const isDateTemplate = node.getAttribute('android:id') === '@+id/dateTimeTextView';
     const isFabula = node.getAttribute('android:text')?.startsWith('@string/fabul');
+    const isPddPoint212 = node.getAttribute('android:text') === '@string/punkt20';
     if (isDateTemplate) text = templateDate();
     if (text === 'Placeholder text') return document.createDocumentFragment();
     const title = node.getAttribute('android:textStyle') === 'bold' || node.getAttribute('android:textAppearance')?.includes('.Large') || node.getAttribute('android:textSize')?.includes('sp') && Number.parseInt(node.getAttribute('android:textSize')) >= 20;
     const element = document.createElement(title ? 'h2' : 'p');
-    setFormattedText(element, text);
+    if (isPddPoint212) setPddPoint212Text(element, text);
+    else setFormattedText(element, text);
     applyAndroidStyle(element, node);
     if (isFabula) element.style.fontWeight = '400';
+    if (isPddPoint212) {
+      element.classList.add('pdd-point-212');
+      element.style.fontWeight = '400';
+      element.style.fontStyle = 'normal';
+      element.style.textDecoration = 'none';
+    }
     if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
     if (isDateTemplate) element.classList.add('template-date');
     return element;
