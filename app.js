@@ -56,6 +56,28 @@ const programmaticLists = {
   }
 };
 
+// Main304Activity attaches its MediaPlayer listeners in Java, not XML.
+// The browser uses the same four bundled recordings and preserves a paused
+// recording's position when PLAY is pressed again.
+const programmaticAudio = {
+  Main304Activity: {
+    play: { file: 'konstit.mp3', action: 'play' },
+    pause: { file: 'konstit.mp3', action: 'pause' },
+    play1: { file: 'narushit.mp3', action: 'play' },
+    pause1: { file: 'narushit.mp3', action: 'pause' },
+    play2: { file: 'svidetel.mp3', action: 'play' },
+    pause2: { file: 'svidetel.mp3', action: 'pause' },
+    play3: { file: 'poniatoy.mp3', action: 'play' },
+    pause3: { file: 'poniatoy.mp3', action: 'pause' }
+  }
+};
+const audioPlayers = new Map();
+
+function audioPlayer(file) {
+  if (!audioPlayers.has(file)) audioPlayers.set(file, new Audio(`assets/res/raw/${file}`));
+  return audioPlayers.get(file);
+}
+
 const $ = id => document.getElementById(id);
 
 function templateDate() {
@@ -279,7 +301,13 @@ function renderNode(node) {
     const handler = node.getAttribute('android:onClick');
     const target = routes[current]?.handlers?.[handler];
     const externalUrl = externalLinks[current]?.buttons?.[androidId(node.getAttribute('android:id'))] || externalLinks[current]?.handlers?.[handler];
-    if (externalUrl) button.addEventListener('click', () => window.open(externalUrl, '_blank', 'noopener'));
+    const audioAction = programmaticAudio[current]?.[androidId(node.getAttribute('android:id'))];
+    if (audioAction) button.addEventListener('click', () => {
+      const player = audioPlayer(audioAction.file);
+      if (audioAction.action === 'play') player.play().catch(() => {});
+      else player.pause();
+    });
+    else if (externalUrl) button.addEventListener('click', () => window.open(externalUrl, '_blank', 'noopener'));
     else if (target && routes[target]) button.addEventListener('click', () => openScreen(target));
     else button.disabled = true;
     return button;
