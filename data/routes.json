@@ -204,7 +204,9 @@
   "Main504Activity": {
     "layout": "activity_main504",
     "title": "main504",
-    "handlers": {}
+    "handlers": {
+      "newScreen": "MainActivity506"
+    }
   },
   "Main157Activity": {
     "layout": "activity_main157",
@@ -1067,7 +1069,7 @@
       "newScreen15": "Main115Activity",
       "newScreen18": "Main144Activity",
       "newScreen38": "Main251Activity",
-      "newScreen41": "Main700Activity",
+      "newScreen41": "MainActivity600",
       "newScreen6": "Main62Activity",
       "newScreen31": "Main223Activity",
       "newScreen3": "Main30Activity",
@@ -1119,7 +1121,8 @@
       "newScreen2": "Main99Activity",
       "newScreen3": "Main100Activity",
       "newScreen": "Main97Activity",
-      "newScreen1": "Main98Activity"
+      "newScreen1": "Main98Activity",
+      "newScreen4": "MainActivity603"
     }
   },
   "Main300Activity": {
@@ -1990,7 +1993,8 @@
     "title": "main240",
     "handlers": {
       "newScreen1": "Main242Activity",
-      "newScreen": "Main241Activity"
+      "newScreen": "Main241Activity",
+      "newScreen2": "MainActivity604"
     }
   },
   "Main155Activity": {
@@ -2797,6 +2801,34 @@
   "Main352Activity": {
     "layout": "activity_main352",
     "title": "main352",
+    "handlers": {}
+  },
+  "MainActivity600": {
+    "layout": "activity_main600",
+    "title": "main600",
+    "handlers": {
+      "newScreen": "MainActivity601",
+      "newScreen1": "Main505Activity"
+    }
+  },
+  "MainActivity601": {
+    "layout": "activity_main601",
+    "title": "main601",
+    "handlers": {}
+  },
+  "MainActivity506": {
+    "layout": "activity_main506",
+    "title": "main506",
+    "handlers": {}
+  },
+  "MainActivity603": {
+    "layout": "activity_main603",
+    "title": "main603",
+    "handlers": {}
+  },
+  "MainActivity604": {
+    "layout": "activity_main604",
+    "title": "main604",
     "handlers": {}
   },
   "Main137Activity": {
