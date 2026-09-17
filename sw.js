@@ -1,5 +1,5 @@
-const CACHE = 'pamiatka-dps-v38';
-const CORE = ['./', './index.html', './styles.css?v=38', './app.js?v=38', './manifest.webmanifest?v=38', './data/routes.json', './data/strings.xml', './data/styled-runs.json', './data/external-links.json', './assets/res/values/arrays.xml', './assets/res/raw/konstit.mp3', './assets/res/raw/narushit.mp3', './assets/res/raw/svidetel.mp3', './assets/res/raw/poniatoy.mp3', './assets/res/drawable-nodpi/farkop.jpg'];
+const CACHE = 'pamiatka-dps-v39';
+const CORE = ['./', './index.html', './styles.css?v=39', './app.js?v=39', './manifest.webmanifest?v=39', './data/routes.json', './data/strings.xml', './data/styled-runs.json', './data/external-links.json', './assets/res/values/arrays.xml', './assets/res/raw/konstit.mp3', './assets/res/raw/narushit.mp3', './assets/res/raw/svidetel.mp3', './assets/res/raw/poniatoy.mp3', './assets/res/drawable-nodpi/farkop.jpg'];
 self.addEventListener('install', event => event.waitUntil((async () => {
   const cache = await caches.open(CACHE);
   const routes = await fetch('./data/routes.json').then(response => response.json());

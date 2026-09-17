@@ -315,7 +315,7 @@ function renderNode(node) {
     const target = routes[current]?.handlers?.[handler];
     const externalUrl = externalLinks[current]?.buttons?.[androidId(node.getAttribute('android:id'))] || externalLinks[current]?.handlers?.[handler];
     const audioAction = programmaticAudio[current]?.[androidId(node.getAttribute('android:id'))];
-    const programmaticButton = current === 'Main468Activity' && androidId(node.getAttribute('android:id')) === 'calculateButton';
+    const programmaticButton = (current === 'Main468Activity' || current === 'Main485Activity') && androidId(node.getAttribute('android:id')) === 'calculateButton';
     if (audioAction) button.addEventListener('click', () => {
       const player = audioPlayer(audioAction.file);
       if (audioAction.action === 'play') player.play().catch(() => {});
@@ -357,8 +357,10 @@ function renderNode(node) {
     return applyAndroidId(image, node);
   }
   if (tag === 'EditText') {
-    const input = document.createElement(current === 'Main468Activity' && androidId(node.getAttribute('android:id')) === 'dateInput' ? 'input' : 'textarea');
-    if (input instanceof HTMLInputElement) input.type = 'date';
+    const editId = androidId(node.getAttribute('android:id'));
+    const isDateInput = editId === 'dateInput' && (current === 'Main468Activity' || current === 'Main485Activity');
+    const input = document.createElement(isDateInput || (current === 'Main485Activity' && editId === 'monthsInput') ? 'input' : 'textarea');
+    if (input instanceof HTMLInputElement) input.type = current === 'Main485Activity' && editId === 'monthsInput' ? 'number' : 'date';
     input.placeholder = value(node.getAttribute('android:hint'));
     return applyAndroidId(input, node);
   }
@@ -530,9 +532,40 @@ function initQualificationSelector(container) {
   update();
 }
 
+function initDisqualificationTermCalculator(container) {
+  const dateInput = screenElement(container, 'dateInput');
+  const monthsInput = screenElement(container, 'monthsInput');
+  const calculate = screenElement(container, 'calculateButton');
+  const result = screenElement(container, 'resultText');
+  calculate.addEventListener('click', () => {
+    if (!dateInput.value) {
+      result.style.color = '#d50000';
+      result.textContent = 'Не выбрана дата!';
+      return;
+    }
+    if (!monthsInput.value.trim()) {
+      result.style.color = '#d50000';
+      result.textContent = 'Введите количество месяцев!';
+      return;
+    }
+    const months = Number.parseInt(monthsInput.value, 10);
+    if (!Number.isFinite(months)) {
+      result.style.color = '#d50000';
+      result.textContent = 'Некорректное число месяцев!';
+      return;
+    }
+    const [year, month, day] = dateInput.value.split('-').map(Number);
+    const end = new Date(year, month - 1, day);
+    end.setMonth(end.getMonth() + months);
+    result.style.color = end <= new Date() ? '#000' : '#d50000';
+    result.textContent = `до ${formatDate(end)}`;
+  });
+}
+
 function initializeScreen(screen, container) {
   if (screen === 'Main468Activity') initDeadlineCalculator(container);
   if (screen === 'Main469Activity') initQualificationSelector(container);
+  if (screen === 'Main485Activity') initDisqualificationTermCalculator(container);
 }
 
 async function openScreen(screen, addHistory = true) {
