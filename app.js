@@ -12,7 +12,10 @@ let searchIndex = null;
 // Keep those assignments here so the corresponding PWA screens are not blank.
 const programmaticStrings = {
   Main145Activity: { textView119: 'fabul69' },
-  Main124Activity: { textView101: 'fabul56' }
+  Main124Activity: { textView101: 'fabul56' },
+  Main47Activity: { textView49: 'fabul15' },
+  Main288Activity: { textView300: 'fabtah11' },
+  Main2Activity: { textView2: 'koap1', textView3: 'koap2', textView4: 'koap3' }
 };
 
 // These Android screens fill a ListView from a string-array in Java rather
@@ -72,6 +75,9 @@ const programmaticAudio = {
   }
 };
 const audioPlayers = new Map();
+
+// Non-working weekdays from the calendar embedded in Main468Activity.
+const nonWorkingWeekdays = new Set('01.01.2024,01.01.2025,01.01.2026,01.05.2023,01.05.2024,01.05.2025,01.05.2026,02.01.2024,02.01.2025,02.01.2026,02.05.2025,03.01.2024,03.01.2025,03.11.2025,04.01.2024,04.11.2024,04.11.2025,04.11.2026,05.01.2024,05.01.2026,06.01.2025,06.01.2026,06.11.2023,07.01.2025,07.01.2026,08.01.2024,08.01.2025,08.01.2026,08.03.2024,08.05.2023,08.05.2025,09.01.2026,09.03.2026,09.05.2023,09.05.2024,09.05.2025,10.05.2024,11.05.2026,12.06.2023,12.06.2024,12.06.2025,12.06.2026,13.06.2025,23.02.2024,23.02.2026,29.04.2024,30.04.2024,30.12.2024,31.12.2024,31.12.2025,31.12.2026'.split(','));
 
 function audioPlayer(file) {
   if (!audioPlayers.has(file)) audioPlayers.set(file, new Audio(`assets/res/raw/${file}`));
@@ -210,6 +216,12 @@ function applyAndroidStyle(element, node) {
   if (weight > 0) element.style.flexGrow = String(weight);
 }
 
+function applyAndroidId(element, node) {
+  const id = androidId(node.getAttribute('android:id'));
+  if (id) element.dataset.androidId = id;
+  return element;
+}
+
 function childElements(node) {
   return [...node.children].filter(child => child.nodeType === 1);
 }
@@ -280,6 +292,7 @@ function relativeLayoutGroups(children) {
 
 function renderNode(node) {
   const tag = node.tagName.replace(/^.*:/, '');
+  if (node.getAttribute('android:visibility') === 'gone') return document.createDocumentFragment();
   let rawText = node.getAttribute('android:text') || '';
   let stringKey = rawText.match(/^@string\/(.+)$/)?.[1];
   const injectedKey = programmaticStrings[current]?.[androidId(node.getAttribute('android:id'))];
@@ -302,6 +315,7 @@ function renderNode(node) {
     const target = routes[current]?.handlers?.[handler];
     const externalUrl = externalLinks[current]?.buttons?.[androidId(node.getAttribute('android:id'))] || externalLinks[current]?.handlers?.[handler];
     const audioAction = programmaticAudio[current]?.[androidId(node.getAttribute('android:id'))];
+    const programmaticButton = current === 'Main468Activity' && androidId(node.getAttribute('android:id')) === 'calculateButton';
     if (audioAction) button.addEventListener('click', () => {
       const player = audioPlayer(audioAction.file);
       if (audioAction.action === 'play') player.play().catch(() => {});
@@ -309,8 +323,8 @@ function renderNode(node) {
     });
     else if (externalUrl) button.addEventListener('click', () => window.open(externalUrl, '_blank', 'noopener'));
     else if (target && routes[target]) button.addEventListener('click', () => openScreen(target));
-    else button.disabled = true;
-    return button;
+    else if (!programmaticButton) button.disabled = true;
+    return applyAndroidId(button, node);
   }
   if (tag === 'TextView' || tag === 'CheckedTextView') {
     const isDateTemplate = node.getAttribute('android:id') === '@+id/dateTimeTextView';
@@ -325,25 +339,47 @@ function renderNode(node) {
     }
     if (node.getAttribute('android:gravity')?.includes('center')) element.classList.add('centered');
     if (isDateTemplate) element.classList.add('template-date');
-    return element;
+    return applyAndroidId(element, node);
   }
   if (tag === 'ImageView') {
     const src = resourceUrl(node.getAttribute('android:src') || node.getAttribute('app:srcCompat'));
     if (!src) return document.createDocumentFragment();
     const image = document.createElement('img');
     image.src = src;
+    const imageSources = [src, src.replace('.png', '.jpg'), src.replace('/drawable/', '/drawable-nodpi/'), src.replace('/drawable/', '/drawable-nodpi/').replace('.png', '.jpg')];
     image.addEventListener('error', () => {
-      if (image.dataset.nodpiFallback) return;
-      image.dataset.nodpiFallback = 'true';
-      image.src = src.replace('/drawable/', '/drawable-nodpi/');
+      const next = Number(image.dataset.fallbackIndex || 0) + 1;
+      if (next >= imageSources.length) return;
+      image.dataset.fallbackIndex = String(next);
+      image.src = imageSources[next];
     });
     image.alt = node.getAttribute('android:contentDescription') || '';
-    return image;
+    return applyAndroidId(image, node);
   }
   if (tag === 'EditText') {
-    const input = document.createElement('textarea');
+    const input = document.createElement(current === 'Main468Activity' && androidId(node.getAttribute('android:id')) === 'dateInput' ? 'input' : 'textarea');
+    if (input instanceof HTMLInputElement) input.type = 'date';
     input.placeholder = value(node.getAttribute('android:hint'));
-    return input;
+    return applyAndroidId(input, node);
+  }
+  if (tag === 'RadioButton' || tag === 'Switch') {
+    const label = document.createElement('label');
+    label.className = tag === 'Switch' ? 'android-switch' : 'android-radio';
+    const input = document.createElement('input');
+    input.type = tag === 'Switch' ? 'checkbox' : 'radio';
+    if (tag === 'RadioButton') input.name = `radio-${current}`;
+    input.checked = node.getAttribute('android:checked') === 'true';
+    applyAndroidId(input, node);
+    const caption = document.createElement('span');
+    caption.textContent = text;
+    applyAndroidStyle(caption, node);
+    label.append(input, caption);
+    return label;
+  }
+  if (tag === 'ProgressBar') {
+    const progress = document.createElement('div');
+    progress.className = 'android-progress';
+    return applyAndroidId(progress, node);
   }
   if (tag === 'ListView') {
     const definition = programmaticLists[current]?.[androidId(node.getAttribute('android:id'))];
@@ -391,6 +427,114 @@ async function getLayout(screen) {
   return new DOMParser().parseFromString(await response.text(), 'application/xml').documentElement;
 }
 
+function screenElement(container, id) {
+  return container.querySelector(`[data-android-id="${id}"]`);
+}
+
+function formatDate(date) {
+  return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`;
+}
+
+function addDays(date, days) {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function nextWorkingDay(date) {
+  const result = new Date(date);
+  while (result.getDay() === 0 || result.getDay() === 6 || nonWorkingWeekdays.has(formatDate(result))) result.setDate(result.getDate() + 1);
+  return result;
+}
+
+function initDeadlineCalculator(container) {
+  const modeCopy = screenElement(container, 'modeCopyReceived');
+  const dateInput = screenElement(container, 'dateInput');
+  const calculate = screenElement(container, 'calculateButton');
+  const labelForce = screenElement(container, 'labelEnterForce');
+  const resultForce = screenElement(container, 'resultEnterForce');
+  const resultPay = screenElement(container, 'resultPayPeriod');
+  const result2025 = screenElement(container, 'resultArt2025Period');
+  const updateMode = () => {
+    const copyReceived = modeCopy.checked;
+    dateInput.title = copyReceived ? 'Дата постановления (получения копии)' : 'Дата вступления в законную силу';
+    labelForce.hidden = !copyReceived;
+    resultForce.hidden = !copyReceived;
+    resultForce.textContent = '';
+    resultPay.textContent = '';
+    result2025.textContent = '';
+    result2025.style.color = '';
+  };
+  modeCopy.addEventListener('change', updateMode);
+  screenElement(container, 'modeEnterForce').addEventListener('change', updateMode);
+  calculate.addEventListener('click', () => {
+    if (!dateInput.value) return;
+    const [year, month, day] = dateInput.value.split('-').map(Number);
+    const source = new Date(year, month - 1, day);
+    let effective = source;
+    if (modeCopy.checked) {
+      effective = nextWorkingDay(addDays(source, 10));
+      resultForce.textContent = formatDate(addDays(effective, 1));
+    }
+    const payStart = addDays(effective, 1);
+    const payEnd = nextWorkingDay(addDays(effective, 60));
+    resultPay.textContent = `${formatDate(payStart)} - ${formatDate(payEnd)}`;
+    const articleStart = addDays(payEnd, 1);
+    const articleEnd = new Date(articleStart);
+    articleEnd.setFullYear(articleEnd.getFullYear() + 1);
+    result2025.textContent = `с ${formatDate(articleStart)} по ${formatDate(articleEnd)}`;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    result2025.style.color = today >= articleStart && today <= articleEnd ? '#d50000' : '';
+  });
+  updateMode();
+}
+
+function initQualificationSelector(container) {
+  const ids = ['switch1', 'switch2', 'switch3', 'switch4', 'switch5', 'switch6', 'switch7', 'switch8', 'switch9', 'switch10'];
+  const controls = Object.fromEntries(ids.map(id => [id, screenElement(container, id)]));
+  const result = screenElement(container, 'resultLabel');
+  const conflicts = {
+    switch1: ['switch2', 'switch3', 'switch5', 'switch10'],
+    switch2: ['switch1', 'switch3', 'switch4', 'switch6', 'switch7'],
+    switch3: ['switch1', 'switch2', 'switch4', 'switch5', 'switch6', 'switch7', 'switch8', 'switch10'],
+    switch4: ['switch2', 'switch3', 'switch5', 'switch6', 'switch7', 'switch8', 'switch9', 'switch10'],
+    switch5: ['switch1', 'switch3', 'switch4', 'switch6', 'switch7', 'switch8', 'switch9', 'switch10'],
+    switch6: ['switch2', 'switch3', 'switch4', 'switch5', 'switch7', 'switch8', 'switch9', 'switch10'],
+    switch7: ['switch2', 'switch3', 'switch4', 'switch5', 'switch6', 'switch8', 'switch9', 'switch10'],
+    switch8: ['switch3', 'switch4', 'switch5', 'switch6', 'switch7', 'switch9', 'switch10'],
+    switch9: ['switch4', 'switch5', 'switch6', 'switch7', 'switch8', 'switch10'],
+    switch10: ['switch1', 'switch3', 'switch4', 'switch5', 'switch6', 'switch7', 'switch8', 'switch9']
+  };
+  const update = () => {
+    Object.values(controls).forEach(control => { control.disabled = false; });
+    const selected = ids.filter(id => controls[id].checked);
+    selected.forEach(id => conflicts[id].forEach(conflict => { if (!controls[conflict].checked) controls[conflict].disabled = true; }));
+    if (selected.length > 2) selected.slice(2).forEach(id => { controls[id].disabled = true; });
+    const has = id => controls[id].checked;
+    let text = selected.length === 1 ? 'Выберите еще параметр' : 'Ничего не выбрано';
+    if (has('switch1') && has('switch4')) text = 'ч. 1 ст. 264.1 УК РФ';
+    else if (has('switch1') && has('switch6')) text = 'ч. 1 ст. 264.1 УК и ч. 1 ст. 12.7 КоАП';
+    else if (has('switch1') && has('switch7')) text = 'ч. 1 ст. 264.1 УК и ч. 2 ст. 12.7 КоАП';
+    else if (has('switch1') && has('switch8')) text = 'ч. 1 ст. 264.1 УК и ч. 4 ст. 12.7 КоАП';
+    else if (has('switch1') && has('switch9')) text = 'ч. 1 ст. 264.1 УК и ч. 1 ст. 264.3 УК';
+    else if (has('switch2') && has('switch5')) text = 'ч. 2 ст. 264.1 УК РФ';
+    else if (has('switch2') && has('switch8')) text = 'ч. 2 ст. 264.1 УК и ч. 4 ст. 12.7 КоАП';
+    else if (has('switch2') && has('switch9')) text = 'ч. 2 ст. 264.1 УК и ч. 1 ст. 264.3 УК';
+    else if (has('switch2') && has('switch10')) text = 'ч. 2 ст. 264.1 УК и ч. 2 ст. 264.3 УК';
+    else if (has('switch3') && has('switch9')) text = 'ч.3 ст.12.8/ч.2 ст.12.26 КоАП и ч.1 ст. 264.3 УК';
+    result.textContent = text;
+    result.style.fontWeight = '700';
+  };
+  Object.values(controls).forEach(control => control.addEventListener('change', update));
+  update();
+}
+
+function initializeScreen(screen, container) {
+  if (screen === 'Main468Activity') initDeadlineCalculator(container);
+  if (screen === 'Main469Activity') initQualificationSelector(container);
+}
+
 async function openScreen(screen, addHistory = true) {
   if (!routes[screen]) return;
   if (addHistory && current !== screen) history.push(current);
@@ -403,6 +547,7 @@ async function openScreen(screen, addHistory = true) {
     const container = document.createElement('div');
     container.className = 'android-layout';
     container.append(renderNode(layout));
+    initializeScreen(screen, container);
     $('screen').replaceChildren(container);
     $('title').textContent = 'Памятка ДПС';
     $('back').disabled = history.length === 0;

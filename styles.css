@@ -8,6 +8,7 @@ main { width: 100%; margin: auto; padding: 8px 5px calc(10px + env(safe-area-ins
 .search { display: block; margin-bottom: 13px; }
 .search span { display: block; margin: 0 0 5px 2px; color: #536272; font-size: 13px; }
 input[type="search"] { width: 100%; min-height: 38px; border: 1px solid #aeb8c2; border-radius: 3px; padding: 0 9px; font: inherit; background: white; }
+.android-layout input[type="date"], .android-layout textarea { width: 100%; min-height: 38px; border: 1px solid #aeb8c2; border-radius: 3px; padding: 7px 9px; font: inherit; background: white; }
 #screen, #search-results { background: white; border-radius: 2px; box-shadow: 0 1px 2px #1d35571a; }
 #screen { overflow: hidden; min-height: 140px; }
 .android-layout { padding: 5px; }
@@ -19,6 +20,11 @@ input[type="search"] { width: 100%; min-height: 38px; border: 1px solid #aeb8c2;
 .android-list { width: 100%; }
 .android-layout .android-list-item { min-height: 48px; margin: 0; border-width: 0 0 1px; border-radius: 0; padding: 10px 16px; text-align: left; background: #fff; box-shadow: none; }
 .android-layout .android-list-item:last-child { border-bottom: 0; }
+.android-switch, .android-radio { display: flex; gap: 9px; align-items: flex-start; min-height: 40px; margin: 8px 3px; font-size: 15px; line-height: 1.3; }
+.android-switch input, .android-radio input { width: 20px; height: 20px; flex: 0 0 auto; margin: 0; accent-color: #303f9f; }
+.android-switch input:disabled + span { opacity: .45; }
+.android-progress { width: 36px; height: 36px; margin: 12px auto; border: 4px solid #d7dce1; border-top-color: #303f9f; border-radius: 50%; animation: android-spin 1s linear infinite; }
+@keyframes android-spin { to { transform: rotate(360deg); } }
 .android-layout button.action-fabula { background: #f4b000 !important; border-color: #d99400; color: #3a2700 !important; font-weight: 700; }
 .android-layout button.action-rule { background: #0878c9 !important; border-color: #0869af; color: #fff !important; font-weight: 700; }
 .android-layout button.action-plenum { background: #2439a5 !important; border-color: #1c2f8c; color: #fff !important; font-weight: 700; }
